@@ -27,20 +27,20 @@ const removeSaved = (index) => {
 </script>
 
 <template>
-    <p v-if="!hasSavedItems">No items added yet.</p>
+  <p>There are saved items:</p>
+  <p v-if="!hasSavedItems">No items added yet.</p>
 
-    <ul v-else>
-      <div v-for="(job, index) in store.savedItems" :key="job.id">
-        There are saved jobs:
-        {{ job.jobTitle }}
-        <button @click="handleJobClick(job)">
-          {{ visibleJobId === job.id ? 'Hide Details' : 'Show Details' }}
-        </button>
-        <button @click="() => removeSaved(index)">Remove</button>
-        <div v-if="visibleJobId === job.id">
-          
-          <div v-html="jobDescription"></div>
-        </div>
+  <ul v-else>
+    <div v-for="(job, index) in store.savedItems" :key="job.id">
+      {{ job.jobTitle }}
+      <button @click="handleJobClick(job)">
+        {{ visibleJobId === job.id ? 'Hide Details' : 'Show Details' }}
+      </button>
+      <button @click="() => removeSaved(index)">Remove</button>
+      <div v-if="visibleJobId === job.id">
+
+        <div v-html="jobDescription"></div>
       </div>
-    </ul>
+    </div>
+  </ul>
 </template>
