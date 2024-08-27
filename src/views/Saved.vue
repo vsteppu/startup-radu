@@ -31,6 +31,7 @@ const removeSaved = (index) => {
 
     <ul v-else>
       <div v-for="(job, index) in store.savedItems" :key="job.id">
+        There are saved jobs:
         {{ job.jobTitle }}
         <button @click="handleJobClick(job)">
           {{ visibleJobId === job.id ? 'Hide Details' : 'Show Details' }}
