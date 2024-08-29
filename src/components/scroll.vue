@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { defineProps, defineEmits } from 'vue';
 import { useJobStore } from '@/stores/jobStore';
 
+
 const visibleJobId = ref(null);
 const store = useJobStore();
 
@@ -15,6 +16,8 @@ const handleButtonClick = (job) => {
   toggleDetails(job);
   emit('select', job);
 };
+
+
 
 const toggleDetails = (job) => {
   visibleJobId.value = (visibleJobId.value === job.id) ? null : job.id;
@@ -29,7 +32,7 @@ const toggleDetails = (job) => {
       <button @click="handleButtonClick(job)">
         {{ visibleJobId === job.id ? 'Hide Details' : 'Show Details' }}
       </button>
-      <button @click="emit('save', job)">
+      <button  @click="emit('save', job)">
         {{ isSaved(job.id) ? 'Saved' : 'Save' }}
       </button>
     </p>

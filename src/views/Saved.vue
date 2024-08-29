@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted  } from 'vue';
 import { useJobStore } from '@/stores/jobStore';
 
 const jobDescription = ref('');
@@ -24,6 +24,10 @@ const handleJobClick = (job) => {
 const removeSaved = (index) => {
   store.removeSaved(index);
 };
+
+onMounted(() => {
+  store.loadItems(); // Load items when component is mounted
+});
 </script>
 
 <template>

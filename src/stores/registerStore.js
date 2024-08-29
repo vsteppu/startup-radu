@@ -1,30 +1,37 @@
 import { defineStore } from "pinia";
+import { ref } from "vue";
+import { auth } from '@/firebase/Firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 // Define a new store
-export const useRegisterStore = defineStore('userStore', {
+export const useRegisterStore = defineStore('userStore', () => {
+  const user = ref(null);
+
+  // Monitorizează starea de autentificare
+  onAuthStateChanged(auth, (firebaseUser) => {
+    if (firebaseUser) {
+      // Dacă utilizatorul este autentificat, actualizează starea din Pinia
+      user.value = firebaseUser;
+    } else {
+      // Dacă utilizatorul nu este autentificat, resetează starea
+      user.value = null;
+    }
+  });
+
+  return { user };
+});
+
+  /*
   state: () => ({
-    users: []  // Change to an array to store multiple users
+    user: null,
   }),
-  actions:{ 
-    checkUserEmail(email, password) {
-      const user = {
-        email,
-        password
-      };
-      
-      
-      const userExists = this.users.find(u => u.email === email);
-      
-      if (userExists) {
-        console.log('User already exists');
-      } else {
-        this.users.push(user);
-        console.log('User added:', this.users);
-      }
+  actions: {
+    setUser(userData) {
+      this.user = userData;
     },
     clearUser() {
-      this.users = [];
-      console.log('Users cleared');
-    }
-  }
-});
+      this.user = null;
+    },
+  },
+}
+*/

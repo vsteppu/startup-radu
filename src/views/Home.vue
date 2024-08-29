@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref} from 'vue';
 import { useJobStore } from '@/stores/jobStore';
 import { defineProps } from 'vue';
 
@@ -14,6 +14,7 @@ const errorMessage = ref('');
 const jobDescription = ref('');
 const visibleJobId = ref(null);
 const store = useJobStore();
+
 
 
 const handleSearch = async (searchQuery, geo, industry) => {
@@ -48,6 +49,11 @@ const handleJobClick = (job) => {
 const handleSave = (job) => {
   store.addToSaved(job);
 };
+
+
+
+
+
 </script>
 
 <template>
