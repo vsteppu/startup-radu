@@ -1,4 +1,6 @@
 <script setup>
+
+import { onBeforeMount } from 'vue';
 import { useRegisterStore } from '@/stores/registerStore.js';
 import { auth } from '@/firebase/Firebase';
 
@@ -12,10 +14,17 @@ const logout = async () => {
     errorMessage.value = error.message;
   }
 };
+    
+onBeforeMount(async () => {
+      await userStore.user; 
+    });
 
 </script>
 
 <template>
-    My Space:<p v-if="userStore.user">{{ userStore.user.email }}</p>
+  <h2  v-if="userStore.user"> My Space:  {{ userStore.user.email }} 
     <button @click="logout">Log out</button>
+  </h2>
+
+
 </template>

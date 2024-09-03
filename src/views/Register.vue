@@ -9,15 +9,13 @@ import { auth } from '@/firebase/Firebase';
 const feedbackMessage = ref('')
 const email = ref('')
 const password = ref('')
-const repeatPassword = ref('')
 const router = useRouter();
 
 const userStore = useRegisterStore();
 
 const register = async () => {
   if (email.value && password.value) {
-    const userExists = userStore.users.find(u => u.email === email.value);
-    if (userExists) {
+    if (userStore.user && userStore.user.email === email.value) {
       feedbackMessage.value = 'User already exists';
     } else {
       try {
@@ -53,8 +51,6 @@ const register = async () => {
   <form @submit.prevent="register">
     <input v-model="email" placeholder="Enter email">
     <input v-model="password" placeholder="Enter password" type="password">
-    <input v-if="password == repeatPassword" v-model="repeatPassword" placeholder="Repeat password" type="password">
-    <p v-else>Please introduce the same passwords</p>
     <button @click="register">Submit</button>
     <p>{{ feedbackMessage }}</p>
   </form>

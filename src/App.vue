@@ -6,14 +6,14 @@ const userStore = useRegisterStore();
 </script>
 
 <template>
+  <div>
 
-  <p><router-link to="/">Home</router-link></p>
-  <p><router-link to="/Favorite">Saved</router-link></p>
-
-  <p v-if="!userStore.user"><router-link to="/Login">Log in</router-link></p>
-
-  <p v-if="userStore.user"><router-link to="/MySpace">Logged in as: {{ userStore.user.email }}</router-link></p>
-  <p v-else><router-link to="/Register">Register</router-link></p>
+    <router-link to="/">Home</router-link>
+    <router-link to="/Favorite">Saved</router-link>
+    <router-link v-if="!userStore.user" to="/Login">Log in</router-link>
+    <router-link v-if="userStore.user" to="/MySpace">Logged in as: {{ userStore.user.email }}</router-link>
+    <router-link v-else to="/Register">Register</router-link>
+  </div>
 
   <div class="container">
     <router-view></router-view>

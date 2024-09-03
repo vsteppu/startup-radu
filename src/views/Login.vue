@@ -26,16 +26,7 @@ const login = async () => {
     router.push('/');
 
   } catch (error) {
-    errorMessage.value = error.message;
-  }
-};
-
-const logout = async () => {
-  try {
-    await auth.signOut();
-    userStore.setUser(null);
-  } catch (error) {
-    errorMessage.value = error.message;
+    errorMessage.value = 'Please enter email and password';
   }
 };
 

@@ -1,11 +1,10 @@
 // stores/jobStore.js
 import { defineStore } from "pinia";
 
-// Define a new store
 export const useJobStore = defineStore("jobStore", {
   state: () => ({
     jobItems: [], // Array for job items
-    savedItems: [], // Array for saved job items
+    savedItems: JSON.parse(localStorage.getItem('savedItems')) || [], // Load saved items from localStorage
   }),
 
   actions: {
@@ -17,6 +16,7 @@ export const useJobStore = defineStore("jobStore", {
       // Add job to savedItems if it's not already there
       if (!this.savedItems.some((savedJob) => savedJob.id === job.id)) {
         this.savedItems.push(job);
+        this.localStoredItems(); // Save to localStorage
       }
     },
 
@@ -26,6 +26,7 @@ export const useJobStore = defineStore("jobStore", {
 
     removeSaved(index) {
       this.savedItems.splice(index, 1); // Remove saved item at specific index
+      this.localStoredItems(); // Update localStorage
     },
 
     getItems() {
@@ -35,6 +36,7 @@ export const useJobStore = defineStore("jobStore", {
     localStoredItems() {
       localStorage.setItem('savedItems', JSON.stringify(this.savedItems));
     },
+
     loadItems() {
       const storedItems = localStorage.getItem('savedItems');
       if (storedItems) {
@@ -42,40 +44,4 @@ export const useJobStore = defineStore("jobStore", {
       }
     },
   },
-    persist: true,
-  });
-
-
-/*
-() => {
-  const jobItems = ref([]); // Array for job items
-
-  const savedItems = ref([]); // Array for saved job items
-
-  const addItem = (item) => {
-    this.jobItems.push(item); // Add item to jobItems
-  };
-
-  const addToSaved = (job) => {
-    // Add job to savedItems if it's not already there
-    if (!this.savedItems.some((savedJob) => savedJob.id === job.id)) {
-      this.savedItems.push(job);
-    }
-  };
-
-  const removeItem = (index) => {
-    this.jobItems.splice(index, 1); // Remove item at specific index
-  };
-
-  const removeSaved = (index) => {
-    this.savedItems.splice(index, 1); // Remove saved item at specific index
-  };
-
-  const localStoredItems = () => {
-    localStorage.setItem("savedItems", JSON.stringify(savedItems.value));
-  };
-  const getItems = () => {
-    return savedItems.value;
-  };
-}
-*/
+});

@@ -1,10 +1,12 @@
 <script setup>
 import { ref, computed, onMounted  } from 'vue';
 import { useJobStore } from '@/stores/jobStore';
+import { useRegisterStore } from '@/stores/registerStore.js';
 
 const jobDescription = ref('');
 const visibleJobId = ref(null);
 const store = useJobStore();
+const userStore = useRegisterStore();
 
 // Computed property to determine if there are any saved items
 const hasSavedItems = computed(() => store.savedItems.length > 0);
@@ -31,20 +33,28 @@ onMounted(() => {
 </script>
 
 <template>
-  <p>There are saved items:</p>
-  <p v-if="!hasSavedItems">No items added yet.</p>
+  <!--
+  <h2 v-if="!userStore.user">Please log in or register to freely navigate <br>
+    <router-link to="/Login">Log in</router-link>
+    <router-link to="/Register">Register</router-link>
+  </h2>
+  -->
+  <p>There are saved items:
 
-  <ul v-else>
-    <div v-for="(job, index) in store.savedItems" :key="job.id">
-      {{ job.jobTitle }}
-      <button @click="handleJobClick(job)">
-        {{ visibleJobId === job.id ? 'Hide Details' : 'Show Details' }}
-      </button>
-      <button @click="() => removeSaved(index)">Remove</button>
-      <div v-if="visibleJobId === job.id">
-
-        <div v-html="jobDescription"></div>
+    <p v-if="!hasSavedItems">No items added yet.</p>
+    
+    <ul v-else>
+      <div v-for="(job, index) in store.savedItems" :key="job.id">
+        {{ job.jobTitle }}
+        <button @click="handleJobClick(job)">
+          {{ visibleJobId === job.id ? 'Hide Details' : 'Show Details' }}
+        </button>
+        <button @click="() => removeSaved(index)">Remove</button>
+        <div v-if="visibleJobId === job.id">
+          
+          <div v-html="jobDescription"></div>
+        </div>
       </div>
-    </div>
-  </ul>
+    </ul>
+  </p>
 </template>

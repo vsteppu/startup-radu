@@ -1,5 +1,5 @@
 <script setup>
-import { ref} from 'vue';
+import { ref } from 'vue';
 import { useJobStore } from '@/stores/jobStore';
 import { defineProps } from 'vue';
 
@@ -17,22 +17,23 @@ const store = useJobStore();
 
 
 
+
 const handleSearch = async (searchQuery, geo, industry) => {
   try {
     const response = await fetch(`https://jobicy.com/api/v2/remote-jobs?tag=${searchQuery}&geo=${geo}&industry=${industry}`);
     const data = await response.json();
-    
+
     if (data.jobCount === 0) {
       errorMessage.value = 'Job not found';
       jobList.value = [];
     } else {
       jobList.value = data.jobs;
-    errorMessage.value = '';
+      errorMessage.value = '';
+    }
+  } catch (error) {
+    errorMessage.value = 'An error occurred. Please try again.';
+    console.error(error);
   }
-} catch (error) {
-  errorMessage.value = 'An error occurred. Please try again.';
-  console.error(error);
-}
 }
 
 const handleJobClick = (job) => {
@@ -41,8 +42,8 @@ const handleJobClick = (job) => {
     jobDescription.value = null;
   } else {
     visibleJobId.value = job.id;
-  jobDescription.value = job.jobDescription;
-  
+    jobDescription.value = job.jobDescription;
+
   }
 };
 
@@ -57,11 +58,16 @@ const handleSave = (job) => {
 </script>
 
 <template>
-  <Search @submit="handleSearch" />
-
-  <p v-if="errorMessage">{{ errorMessage }}</p>
-
-  <Scroll v-if="jobList.length" :jobList="jobList" @select="handleJobClick" @save="handleSave" />
-
-  <Description :selectJob="jobDescription" />
+<!--
+  <h2 v-if="!userStore.user">Please log in or register to freely navigate <br>
+    <router-link to="/Login">Log in</router-link>
+    <router-link to="/Register">Register</router-link>
+  </h2>
+  <p v-else>
+  </p>
+  -->
+    <Search @submit="handleSearch" />
+    <p v-if="errorMessage">{{ errorMessage }}</p>
+    <Scroll v-if="jobList.length" :jobList="jobList" @select="handleJobClick" @save="handleSave" />
+    <Description :selectJob="jobDescription" />
 </template>
