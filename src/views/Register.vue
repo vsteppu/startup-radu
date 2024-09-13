@@ -1,46 +1,27 @@
 <script setup>
 import { ref } from 'vue';
-import { useRegisterStore } from '../stores/registerStore.js';
+import { useAuthStore } from '../stores/authStore';
 import { useRouter } from 'vue-router';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '@/firebase/Firebase';
 
 // Crearea instanței de store
-const feedbackMessage = ref('')
-const email = ref('')
+/* const email = ref('')
 const password = ref('')
+const confirmationpassword = ref('') */
+const email = ref('hhh2345@gmail.com')
+const password = ref('880')
+const confirmationpassword = ref('880')
+
 const router = useRouter();
+const userStore = useAuthStore();
 
-const userStore = useRegisterStore();
 
+console.log(password.value === confirmationpassword.value)
 const register = async () => {
-  if (email.value && password.value) {
-    if (userStore.user && userStore.user.email === email.value) {
-      feedbackMessage.value = 'User already exists';
+    const user = await userStore.registerUser(email.value, password.value);
+    if (user) {
+      router.push('/');
     } else {
-      try {
-        await createUserWithEmailAndPassword(auth, email.value, password.value);
-        feedbackMessage.value = 'User registered successfully';
-        router.push('/');
-        // Redirecționare sau alte acțiuni post-înregistrare
-      } catch (error) {
-        switch (error.code) {
-          case 'auth/email-already-in-use':
-            feedbackMessage.value = 'This email is already in use.';
-            break;
-          case 'auth/invalid-email':
-            feedbackMessage.value = 'Invalid email address.';
-            break;
-          case 'auth/weak-password':
-            feedbackMessage.value = 'The password is too weak.';
-            break;
-          default:
-            feedbackMessage.value = 'An unexpected error occurred: ' + error.message;
-        }
-      }
-    }
-    } else {
-      feedbackMessage.value = 'Please enter both email and password';
+      console.log(userStore.errorMessage); // Afișează mesajul de eroare
     }
   };
 
@@ -48,11 +29,14 @@ const register = async () => {
 
 <template>
   <h2>Register</h2>
-  <form @submit.prevent="register">
-    <input v-model="email" placeholder="Enter email">
-    <input v-model="password" placeholder="Enter password" type="password">
-    <button @click="register">Submit</button>
-    <p>{{ feedbackMessage }}</p>
-  </form>
+  <div v-if="password.value === confirmationpassword.value">
+    <form @submit.prevent="register">
+      <input v-model="email" placeholder="Enter email"><br>
+      <input v-model="password" placeholder="Enter password" type="password"><br>
+      <input v-model="confirmationpassword" placeholder="Enter password" type="password"><br>
+      <button @click="register">Submit</button>
+      <p>{{ userStore.errorMessage }}</p>
+    </form>
+  </div>
 
 </template>

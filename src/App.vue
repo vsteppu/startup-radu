@@ -1,13 +1,12 @@
 <script setup>
-import { useRegisterStore } from '@/stores/registerStore.js';
+import { useAuthStore } from '@/stores/authStore.js';
 
-const userStore = useRegisterStore();
+const userStore = useAuthStore();
 
 </script>
 
 <template>
   <div>
-
     <router-link to="/">Home</router-link>
     <router-link to="/Favorite">Saved</router-link>
     <router-link v-if="!userStore.user" to="/Login">Log in</router-link>

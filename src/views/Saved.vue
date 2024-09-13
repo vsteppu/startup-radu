@@ -1,12 +1,12 @@
 <script setup>
 import { ref, computed, onMounted  } from 'vue';
 import { useJobStore } from '@/stores/jobStore';
-import { useRegisterStore } from '@/stores/registerStore.js';
+import { useAuthStore } from '@/stores/authStore';
 
 const jobDescription = ref('');
 const visibleJobId = ref(null);
 const store = useJobStore();
-const userStore = useRegisterStore();
+const userStore = useAuthStore();
 
 // Computed property to determine if there are any saved items
 const hasSavedItems = computed(() => store.savedItems.length > 0);

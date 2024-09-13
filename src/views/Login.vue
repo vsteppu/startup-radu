@@ -1,32 +1,20 @@
 <script setup>
 import { ref } from 'vue';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '@/firebase/Firebase';
-import { useRegisterStore } from '../stores/registerStore.js';
+import { useAuthStore } from '../stores/authStore.js';
 import { useRouter } from 'vue-router';
 
-const email = ref('');
-const password = ref('');
-const errorMessage = ref('');
+const email = ref('vstepu@gmail.com');
+const password = ref('123456');
 
-const router = useRouter();
-const userStore = useRegisterStore();
+const router = useRouter()
+const userStore = useAuthStore();
 
 const login = async () => {
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
-    const user = userCredential.user;
-
-    console.log(userCredential);
-    console.log(userCredential.user);
-    console.log(user.uid);
-    console.log(user.email);
-
-    userStore.setUser(user);
+  const user = await userStore.authUser(email.value, password.value);
+  if (user) {
     router.push('/');
-
-  } catch (error) {
-    errorMessage.value = 'Please enter email and password';
+  } else {
+    console.log(userStore.errorMessage); // Afișează mesajul de eroare
   }
 };
 
@@ -40,6 +28,6 @@ const login = async () => {
       <input v-model="password" type="password" placeholder="Password" />
       <button type="submit">Login</button>
     </form>
-    <p>{{ errorMessage }}</p>
+    <p>{{ userStore.errorMessage }}</p>
   </div>
 </template>

@@ -1,9 +1,7 @@
 // src/router.js
 import { createRouter, createWebHistory } from "vue-router";
-import { useRegisterStore } from "../stores/registerStore.js";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from '@/firebase/Firebase';
-
+import { useAuthStore } from '@/stores/authStore';
+import { storeToRefs } from "pinia";
 
 import Home from "../views/Home.vue";
 import Favorite from "../views/Saved.vue";
@@ -11,12 +9,14 @@ import Register from "@/views/Register.vue";
 import Login from "@/views/Login.vue";
 import MySpace from "@/views/MySpace.vue";
 
+
+
 const routes = [
-  { path: "/", component: Home },
-  { path: "/favorite", component: Favorite },
-  { path: "/register", component: Register },
-  { path: "/Login", component: Login },
-  { path: "/MySpace", component: MySpace },
+  { path: "/", name: Home, component: Home, meta: { requiresAuth: true } },
+  { path: "/favorite", name: Favorite, component: Favorite, meta: { requiresAuth: true } },
+  { path: "/myspace", name: MySpace, component: MySpace, meta: { requiresAuth: true } },
+  { path: "/register", name: Register, component: Register, meta: { requiresAuth: false } },
+  { path: "/login", name: Login, component: Login, meta: { requiresAuth: false } },
 ];
 
 const router = createRouter({
@@ -24,17 +24,16 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  const userStore = useRegisterStore(); 
-  const isAuthenticated = userStore.user;
+router.beforeEach((to, from) => {
 
-  if (
-    to.matched.some((record) => record.meta.requiresAuth) && !isAuthenticated
-  ) {
-    next("/login"); // Redirecționează către login dacă ruta necesită autentificare
+  const authStore = useAuthStore()
+  const { user } = storeToRefs(authStore)
+
+  if (!authStore.isAuthenticated() && to.meta.requiresAuth === true) {
+    return { path: '/login' }
   } else {
-    next(); // Permite navigarea
+    return true
   }
-});
+})
 
 export default router
