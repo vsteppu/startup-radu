@@ -3,18 +3,18 @@ import { ref } from 'vue';
 import { useAuthStore } from '../stores/authStore.js';
 import { useRouter } from 'vue-router';
 
-const email = ref('vstepu@gmail.com');
-const password = ref('vstepu@gmail.com');
+const email = ref('vstepu39@gmail.com');
+const password = ref('vstepugmail.9999');
 
 const router = useRouter()
-const userStore = useAuthStore();
+const authStore = useAuthStore();
 
 const login = async () => {
-  const user = await userStore.authUser(email.value, password.value);
+  const user = await authStore.authUser(email.value, password.value);
   if (user) {
     router.push('/');
   } else {
-    console.log(userStore.errorMessage); // Afișează mesajul de eroare
+    console.log(authStore.errorMessage); // Afișează mesajul de eroare
   }
 };
 
@@ -26,8 +26,9 @@ const login = async () => {
     <form @submit.prevent="login">
       <input v-model="email" type="email" placeholder="Email" />
       <input v-model="password" type="password" placeholder="Password" />
+      <p style="color: tan;">Forgot Password?</p>
       <button type="submit">Login</button>
     </form>
-    <p>{{ userStore.errorMessage }}</p>
+    <p>{{ authStore.errorMessage }}</p>
   </div>
 </template>

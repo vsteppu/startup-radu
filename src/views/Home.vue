@@ -15,9 +15,6 @@ const jobDescription = ref('');
 const visibleJobId = ref(null);
 const store = useJobStore();
 
-
-
-
 const handleSearch = async (searchQuery, geo, industry) => {
   try {
     const response = await fetch(`https://jobicy.com/api/v2/remote-jobs?tag=${searchQuery}&geo=${geo}&industry=${industry}`);
@@ -51,21 +48,9 @@ const handleSave = (job) => {
   store.addToSaved(job);
 };
 
-
-
-
-
 </script>
 
 <template>
-<!--
-  <h2 v-if="!userStore.user">Please log in or register to freely navigate <br>
-    <router-link to="/Login">Log in</router-link>
-    <router-link to="/Register">Register</router-link>
-  </h2>
-  <p v-else>
-  </p>
-  -->
     <Search @submit="handleSearch" />
     <p v-if="errorMessage">{{ errorMessage }}</p>
     <Scroll v-if="jobList.length" :jobList="jobList" @select="handleJobClick" @save="handleSave" />

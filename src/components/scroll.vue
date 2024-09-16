@@ -17,8 +17,6 @@ const handleButtonClick = (job) => {
   emit('select', job);
 };
 
-
-
 const toggleDetails = (job) => {
   visibleJobId.value = (visibleJobId.value === job.id) ? null : job.id;
 };
@@ -28,7 +26,7 @@ const toggleDetails = (job) => {
 <template>
   <div>
     <p v-for="(job, index) in props.jobList" :key="job.id">
-      {{ job.jobTitle }}
+      {{ job.jobTitle }} <br>
       <button @click="handleButtonClick(job)">
         {{ visibleJobId === job.id ? 'Hide Details' : 'Show Details' }}
       </button>

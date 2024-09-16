@@ -3,15 +3,11 @@ import { defineStore } from "pinia";
 
 export const useJobStore = defineStore("jobStore", {
   state: () => ({
-    jobItems: [], // Array for job items
     savedItems: JSON.parse(localStorage.getItem('savedItems')) || [], // Load saved items from localStorage
   }),
 
   actions: {
-    addItem(item) {
-      this.jobItems.push(item); // Add item to jobItems
-    },
-
+    
     addToSaved(job) {
       // Add job to savedItems if it's not already there
       if (!this.savedItems.some((savedJob) => savedJob.id === job.id)) {
@@ -32,7 +28,7 @@ export const useJobStore = defineStore("jobStore", {
     getItems() {
       return this.savedItems;
     },
-
+    
     localStoredItems() {
       localStorage.setItem('savedItems', JSON.stringify(this.savedItems));
     },

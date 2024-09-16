@@ -45,7 +45,7 @@ onMounted(() => {
     
     <ul v-else>
       <div v-for="(job, index) in store.savedItems" :key="job.id">
-        {{ job.jobTitle }}
+        {{ job.jobTitle }} <br>
         <button @click="handleJobClick(job)">
           {{ visibleJobId === job.id ? 'Hide Details' : 'Show Details' }}
         </button>
