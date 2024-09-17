@@ -8,22 +8,19 @@ const password = ref('vstepugmail.9999')
 const confirmationpassword = ref('vstepugmail.9999')
 const errorMessage = ref('')
 const errorCodes = {
-  'auth/email-already-in-use': 'Email alredy in use'
+  'auth/email-already-in-use': 'Email alredy in use',
+  'auth/missing-email': 'Email is missing'
 }
 
 const router = useRouter();
 const authStore = useAuthStore();
 
-const register = async () => {/* 
+const register = async () => {
   if (password.value === confirmationpassword.value && !email.value.includes('@')) {
     errorMessage.value = 'Email must include @ tag';
-    console.log('Email not valid')
   } else if (password.value !== confirmationpassword.value && email.value.includes('@')) {
     errorMessage.value = 'Passwords are not the same';
-    console.log('Passwords are not the same')
-  } else if (password.value === confirmationpassword.value && email.value.includes('@')) { 
-  }
-   */
+  } else if (password.value === confirmationpassword.value && email.value.includes('@')) {
     try {
       const user = await authStore.registerUser(email.value, password.value);
       if (user) {
@@ -32,7 +29,8 @@ const register = async () => {/*
     } catch (error) {
       errorMessage.value = errorCodes[error.code] ?? error.message;
     }
-};
+  }
+}
 
 </script>
 
@@ -42,8 +40,7 @@ const register = async () => {/*
     <input v-model="email" placeholder="Enter email" type="email"><br>
     <input v-model="password" placeholder="Enter password" type="password"><br>
     <input v-model="confirmationpassword" placeholder="Enter password" type="password"><br>
-    <p v-if="errorMessage"> {{ errorMessage}}</p>
-
+    <p v-if="errorMessage"> {{ errorMessage }}</p>
   </form>
   <button @click="register">Submit</button>
 
