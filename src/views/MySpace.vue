@@ -19,7 +19,7 @@ const isActive = ref(false)
 const reauthenticateuser = async () => {
   const succes = await authStore.reauthenticateUser(currentPassword.value);
   isReauthenticate.value = succes
-  console.log(isReauthenticate.value)
+  console.log('Value of isReauthenticate =' + isReauthenticate.value)
   return succes
 };
 

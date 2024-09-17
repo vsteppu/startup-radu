@@ -3,26 +3,35 @@ import { ref } from 'vue';
 import { useAuthStore } from '../stores/authStore';
 import { useRouter } from 'vue-router';
 
-const email = ref('vstepu39@gmail.com')
+const email = ref('shtepuvlad@gmail.com')
 const password = ref('vstepugmail.9999')
 const confirmationpassword = ref('vstepugmail.9999')
-const error = ref('')
+const errorMessage = ref('')
+const errorCodes = {
+  'auth/email-already-in-use': 'Email alredy in use'
+}
 
 const router = useRouter();
 const authStore = useAuthStore();
 
-const register = async () => {
-  if (password.value === confirmationpassword.value) {
-    const user = await authStore.registerUser(email.value, password.value);
-    if (user) {
-      router.push('/');
-    } else {
-      console.log(authStore.errorMessage); // Afișează mesajul de eroare
-    }
-  } else {
-    error.value = 'Passwords are not the same';
+const register = async () => {/* 
+  if (password.value === confirmationpassword.value && !email.value.includes('@')) {
+    errorMessage.value = 'Email must include @ tag';
+    console.log('Email not valid')
+  } else if (password.value !== confirmationpassword.value && email.value.includes('@')) {
+    errorMessage.value = 'Passwords are not the same';
     console.log('Passwords are not the same')
+  } else if (password.value === confirmationpassword.value && email.value.includes('@')) { 
   }
+   */
+    try {
+      const user = await authStore.registerUser(email.value, password.value);
+      if (user) {
+        router.push('/');
+      }
+    } catch (error) {
+      errorMessage.value = errorCodes[error.code] ?? error.message;
+    }
 };
 
 </script>
@@ -33,7 +42,7 @@ const register = async () => {
     <input v-model="email" placeholder="Enter email" type="email"><br>
     <input v-model="password" placeholder="Enter password" type="password"><br>
     <input v-model="confirmationpassword" placeholder="Enter password" type="password"><br>
-    {{ authStore.errorMessage }} {{ error }}
+    <p v-if="errorMessage"> {{ errorMessage}}</p>
 
   </form>
   <button @click="register">Submit</button>

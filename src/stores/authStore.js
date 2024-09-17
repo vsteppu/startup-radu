@@ -2,7 +2,15 @@
 import { defineStore } from "pinia";
 import { ref, watch } from "vue";
 import { auth } from "@/firebase/Firebase";
-import { onAuthStateChanged, updatePassword, signInWithEmailAndPassword, createUserWithEmailAndPassword, EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
+import {
+  onAuthStateChanged,
+  updatePassword,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  EmailAuthProvider,
+  reauthenticateWithCredential,
+  fetchSignInMethodsForEmail
+} from "firebase/auth";
 
 
 
@@ -12,60 +20,40 @@ export const useAuthStore = defineStore("authStore", () => {
   const errorMessage = ref('')
 
   const registerUser = async (email, password) => {
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user
-      setUser(user)
-      console.log(user);
-      return user;
-    } catch (error) {
-      errorMessage.value = 'An unexpected error occurred: ' + error.message;
-    }
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user
+    setUser(user)
+    console.log(user);
+    return user;
   };
 
   const authUser = async (email, password) => {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    setUser(user);
+    console.log('Loged in as: ' + user.email)
+    return user
+  };
 
+
+  const checkUserExists = async (email) => {
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      setUser(user);
-      console.log(user.email);
-      console.log(user.password);
-      return user
-    } catch (error) {
-      errorMessage.value = 'Please enter email and password';
-    }
-  };
+      // Fetch methods for the given email
+      const signInMethods = await fetchSignInMethodsForEmail(auth, email);
 
-/* 
-  const changePassword = async (currentPassword, newPassword) => {
-    const currentUser = auth.currentUser;
-
-    if (currentUser) {
-      // Creează credențialele pentru reautentificare
-      const credential = EmailAuthProvider.credential(currentUser.email, currentPassword);
-      
-      try {
-        // Reautentifică utilizatorul
-        await reauthenticateWithCredential(currentUser, credential);
-        console.log('User reauthenticated successfully');
-        
-        // Schimbă parola
-        await updatePassword(currentUser, newPassword);
-        console.log('Password changed successfully!');
-        
-        // Actualizează userul în store și în localStorage
-        setUser(currentUser);
-      } catch (error) {
-        // Gestionează erorile de reautentificare sau schimbare a parolei
-        errorMessage.value = 'Error: ' + error.message;
-        console.error('Error:', error.message);
+      // Check if the list is empty
+      if (signInMethods.length > 0) {
+        console.log('User exists with this email.');
+        return true;
+      } else {
+        console.log('No user found with this email.');
+        return false;
       }
-    } else {
-      console.error('No user is currently signed in');
+    } catch (error) {
+      console.error('Error fetching sign-in methods:', error.message);
+      return false;
     }
   };
- */
 
 
   const reauthenticateUser = async (currentPassword) => {
@@ -110,7 +98,6 @@ export const useAuthStore = defineStore("authStore", () => {
     } else {
       localStorage.removeItem("user");
     }
-    console.log(user)
   }
 
   function isAuthenticated() {
@@ -134,5 +121,5 @@ export const useAuthStore = defineStore("authStore", () => {
     }
   });
 
-  return { user, registerUser, authUser, reauthenticateUser, changePassword, setUser, onAuthStateChanged, isAuthenticated };
+  return { user, registerUser, checkUserExists, errorMessage, authUser, reauthenticateUser, changePassword, setUser, onAuthStateChanged, isAuthenticated };
 });
