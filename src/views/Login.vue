@@ -27,8 +27,6 @@ const isValidateEmail = (email) => {
 const login = async () => {
   try {
     if (email.value.trim() === '') throw new Error('Enter the email adress');
-
-    console.log(isValidateEmail(email.value))
     if (!isValidateEmail(email.value)) throw new Error('Enter the valid email adress');
 
 
@@ -61,8 +59,8 @@ const forgotButton = async () => {
   <div>
     <h2>Log in</h2>
     <form @submit.prevent="login">
-      <input v-model="email" type="email" placeholder="Email" />
-      <input v-model="password" type="password" placeholder="Password" />
+      <input v-model="email" type="email" placeholder="Email" /><br>
+      <input v-model="password" type="password" placeholder="Password" /><br>
       <p @click="forgotButton" style="cursor: pointer;">
         {{ wasSent ? 'Email with reset password link was sent' : 'Forgot Password' }}
       </p>

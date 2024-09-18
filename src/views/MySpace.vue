@@ -57,20 +57,18 @@ const logout = async () => {
 <template>
   <h2 v-if="authStore.user"> My Space: {{ authStore.user.email }}
     <br>
-    <button @click="logout">Log out</button><br>
-    <button @click="changePasswordButton">Change password</button>
+    <p @click="changePasswordButton" style="cursor: pointer; font-size: 16px;">Change password</p>
     <div v-if="isActive">
       <input v-model="currentPassword" type="password" placeholder="Type current password"><br>
-      <button @click="reauthenticateuser">ReauthenticateUser</button>
+      <p @click="reauthenticateuser" style="cursor: pointer;">ReauthenticateUser</p>
       <div v-if="isReauthenticate">
         <input v-model="newPassword" type="password" placeholder="Type new password"><br>
         <input v-model="confirmNewPassword" type="password" placeholder="Confirm new password"><br>
         <button @click="changepassword">ChangePassword</button>
       </div>
-
       {{ error }} {{ errorMessage }}
-
     </div>
+    <button @click="logout">Log out</button><br>
 
   </h2>
   <h3 v-else><router-link to="/Login">Please Log in</router-link></h3>
