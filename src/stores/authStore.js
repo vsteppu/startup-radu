@@ -9,7 +9,8 @@ import {
   createUserWithEmailAndPassword,
   EmailAuthProvider,
   reauthenticateWithCredential,
-  fetchSignInMethodsForEmail
+  fetchSignInMethodsForEmail,
+  sendPasswordResetEmail
 } from "firebase/auth";
 
 
@@ -35,6 +36,14 @@ export const useAuthStore = defineStore("authStore", () => {
     return user
   };
 
+  const sendResetLink = async (email) => {
+    try {
+      await sendPasswordResetEmail(auth, email);
+      console.log('Email for reset password was sent');
+    } catch (error) {
+      console.error('The error has ocured:', error);
+    }
+  };
 
   const checkUserExists = async (email) => {
     try {
@@ -121,5 +130,5 @@ export const useAuthStore = defineStore("authStore", () => {
     }
   });
 
-  return { user, registerUser, checkUserExists, errorMessage, authUser, reauthenticateUser, changePassword, setUser, onAuthStateChanged, isAuthenticated };
+  return { user, sendResetLink, registerUser, checkUserExists, errorMessage, authUser, reauthenticateUser, changePassword, setUser, onAuthStateChanged, isAuthenticated };
 });

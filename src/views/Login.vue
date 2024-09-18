@@ -5,10 +5,10 @@ import { useRouter } from 'vue-router';
 
 
 const email = ref('shtepuvlad@gmail.com');
-const emailtosend = ref('');
-const password = ref('vstepugmail.9999');
+const password = ref('vladsteppu@gmail');
+const wasSent = ref('');
+
 const errorMessage = ref('');
-const isActive = ref('true');
 const errorCodes = {
   'auth/invalid-credential': 'Invalid Login or Password. Try to type again',
   'auth/too-many-requests': 'Too many requests to log in. Change your password or try later.',
@@ -19,10 +19,21 @@ const errorCodes = {
 const router = useRouter()
 const authStore = useAuthStore();
 
+const isValidateEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
 const login = async () => {
   try {
-    // de inclus if pentru verificarea email si password inainte sa trimita pe auth
+    if (email.value.trim() === '') throw new Error('Enter the email adress');
+
+    console.log(isValidateEmail(email.value))
+    if (!isValidateEmail(email.value)) throw new Error('Enter the valid email adress');
+
+
     const user = await authStore.authUser(email.value, password.value);
+
     if (user) {
       router.push('/');
     }
@@ -31,26 +42,18 @@ const login = async () => {
   }
 };
 
+
+
 const forgotButton = async () => {
   try {
-    if (email.value !== '') {
-      await authStore.checkUserExists(email.value);
-      isActive.value = true
-    } else {
-      isActive.value = false
-      if (emailtosend.value !== '') {
-        console.log('forgot password form-link sent to: ' + emailtosend.value)
-        isActive.value = true
-      } else {
-        console.log('Complete the email field')
-        isActive.value = false
-      }
-    }
+    if (email.value.trim() === '') throw new Error('Enter the email adress in email adress field');
+    if (!isValidateEmail(email.value)) throw new Error('Enter the valid email adress');
+    await authStore.sendResetLink(email.value)
+    wasSent.value = true
   } catch (error) {
-    errorMessage.value = 'This error ocured' + error.message;
+    errorMessage.value = error.message;
   }
 }
-
 
 </script>
 
@@ -60,14 +63,11 @@ const forgotButton = async () => {
     <form @submit.prevent="login">
       <input v-model="email" type="email" placeholder="Email" />
       <input v-model="password" type="password" placeholder="Password" />
+      <p @click="forgotButton" style="cursor: pointer;">
+        {{ wasSent ? 'Email with reset password link was sent' : 'Forgot Password' }}
+      </p>
       <p v-if="errorMessage" style="color: red;">{{ errorMessage }}</p>
-      <p @click="forgotButton">Forgot Password?</p>
       <button type="submit">Login</button>
     </form>
-    <p v-if="!isActive">
-      Change Password via Email: <br>
-      <input v-model="emailtosend" type="email" placeholder="Type email to send form-link" /><br>
-      <button @click="forgotButton">Send</button>
-    </p>
   </div>
 </template>
