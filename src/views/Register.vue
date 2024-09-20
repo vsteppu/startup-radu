@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { useAuthStore } from '../stores/authStore';
 import { useRouter } from 'vue-router';
+import { validateFormForEmail, validateFormForPassword } from '@/errors/validationerrors.js'
 import { errorCodes } from '@/errors/autherrors'
 
 
@@ -14,15 +15,11 @@ const password = ref('vstepuGmail.9999')
 const confirmationpassword = ref('vstepuGmail.9999')
 const errorMessage = ref('')
 const isPasswordVisible = ref(false);
-/* const errorCodes = {
-  'auth/email-already-in-use': 'Email alredy in use',
-  'auth/missing-email': 'Email is missing'
-}
- */
+
 const register = async () => {
   try {
-    //validateFormForEmail(email.value);
-    //validateFormForPassword(password.value, confirmationpassword.value);
+    validateFormForEmail(email.value);
+    validateFormForPassword(password.value, confirmationpassword.value);
     const user = await authStore.registerUser(email.value, password.value);
     if (user) {
       router.push('/');

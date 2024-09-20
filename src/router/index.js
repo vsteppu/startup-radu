@@ -4,7 +4,7 @@ import { useAuthStore } from '@/stores/authStore';
 import { storeToRefs } from "pinia";
 
 import Home from "../views/Home.vue";
-import Favorite from "../views/Saved.vue";
+import Saved from "../views/Saved.vue";
 import Register from "@/views/Register.vue";
 import Login from "@/views/Login.vue";
 import MySpace from "@/views/MySpace.vue";
@@ -14,7 +14,7 @@ import ForgotPassLink from "@/views/ForgotPassword.vue";
 
 const routes = [
   { path: "/", name: Home, component: Home, meta: { requiresAuth: true } },
-  { path: "/favorite", name: Favorite, component: Favorite, meta: { requiresAuth: true } },
+  { path: "/saved", name: Saved, component: Saved, meta: { requiresAuth: true } },
   { path: "/myspace", name: MySpace, component: MySpace, meta: { requiresAuth: false } },
   { path: "/forgotpasslink", name: ForgotPassLink, component: ForgotPassLink, meta: { requiresAuth: false } },
   { path: "/register", name: Register, component: Register, meta: { requiresAuth: false } },

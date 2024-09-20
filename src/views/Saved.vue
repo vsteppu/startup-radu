@@ -33,13 +33,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <!--
-  <h2 v-if="!userStore.user">Please log in or register to freely navigate <br>
-    <router-link to="/Login">Log in</router-link>
-    <router-link to="/Register">Register</router-link>
-  </h2>
-  -->
-  <p>There are saved items:
+  <p>Saved items:
 
     <p v-if="!hasSavedItems">No items added yet.</p>
     

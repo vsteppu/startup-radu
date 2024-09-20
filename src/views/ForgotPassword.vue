@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { isValidateEmail } from '@/utilities/utilities'
+import { validateFormForEmail } from '@/errors/validationerrors.js'
 import { useAuthStore } from '../stores/authStore.js';
 
 const authStore = useAuthStore();
@@ -11,8 +11,7 @@ const wasSent = ref(false)
 
 const forgotButton = async () => {
   try {
-    if (email.value.trim() === '') throw new Error('Enter the email adress in email adress field');
-    if (!isValidateEmail(email.value)) throw new Error('Enter the valid email adress');
+    validateFormForEmail(email.value);
     await authStore.sendResetLink(email.value)
     wasSent.value = true
   } catch (error) {

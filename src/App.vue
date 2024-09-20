@@ -8,7 +8,7 @@ const userStore = useAuthStore();
 <template>
   <div>
     <router-link to="/">Home</router-link>
-    <router-link to="/Favorite">Saved</router-link>
+    <router-link to="/Saved">Saved</router-link>
     <router-link v-if="!userStore.user" to="/Login">Log in</router-link>
     <router-link v-if="userStore.user" to="/MySpace">Logged in as: {{ userStore.user.email }}</router-link>
     <router-link v-else to="/Register">Register</router-link>
