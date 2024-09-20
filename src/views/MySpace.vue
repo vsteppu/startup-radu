@@ -7,14 +7,15 @@ import { ref } from 'vue';
 const router = useRouter()
 const authStore = useAuthStore();
 
-const currentPassword = ref('vstepugmail.9999')
+const currentPassword = ref('vstepuGmail.9999')
 const newPassword = ref('vstepugmail.11111')
 const confirmNewPassword = ref('vstepugmail.11111')
 const error = ref('')
 const errorMessage = ref('')
 const isReauthenticate = ref(false)
 const isActive = ref(false)
-
+const isPasswordVisible = ref(false);
+const isReauthenticatePasswordVisible = ref(false);
 
 const reauthenticateuser = async () => {
   const succes = await authStore.reauthenticateUser(currentPassword.value);
@@ -46,11 +47,19 @@ const logout = async () => {
   try {
     await auth.signOut();
     authStore.setUser(null);
+    router.push('/')
   } catch (error) {
     errorMessage.value = error.message;
   }
 }
 
+const togglePasswordVisibiliti = () => {
+  isPasswordVisible.value = !isPasswordVisible.value
+}
+
+const toggleReauthenticatePasswordVisibiliti = () => {
+  isReauthenticatePasswordVisible.value = !isReauthenticatePasswordVisible.value
+}
 
 </script>
 
@@ -59,19 +68,24 @@ const logout = async () => {
     <br>
     <p @click="changePasswordButton" style="cursor: pointer; font-size: 16px;">Change password</p>
     <div v-if="isActive">
-      <input v-model="currentPassword" type="password" placeholder="Type current password"><br>
-      <p @click="reauthenticateuser" style="cursor: pointer;">ReauthenticateUser</p>
+      <input v-model="currentPassword" :type="isReauthenticatePasswordVisible ? 'text' : 'password'"
+        placeholder="Type current password">
+      <button @click="toggleReauthenticatePasswordVisibiliti" type="button">
+        {{ isReauthenticatePasswordVisible ? 'Hide Password' : 'Show Password' }} </button>
+      <br>
+      <button @click="reauthenticateuser" style="cursor: pointer;">ReauthenticateUser</button>
       <div v-if="isReauthenticate">
-        <input v-model="newPassword" type="password" placeholder="Type new password"><br>
-        <input v-model="confirmNewPassword" type="password" placeholder="Confirm new password"><br>
+        <input v-model="newPassword" :type="isPasswordVisible ? 'text' : 'password'" placeholder="Type new password">
+        <input v-model="confirmNewPassword" :type="isPasswordVisible ? 'text' : 'password'" placeholder="Confirm new password">
+        <button @click="togglePasswordVisibiliti" type="button">
+          {{ isPasswordVisible ? 'Hide Password' : 'Show Password' }} </button>
+          <br>
         <button @click="changepassword">ChangePassword</button>
       </div>
       {{ error }} {{ errorMessage }}
     </div>
     <button @click="logout">Log out</button><br>
-
   </h2>
-  <h3 v-else><router-link to="/Login">Please Log in</router-link></h3>
 
 
 </template>

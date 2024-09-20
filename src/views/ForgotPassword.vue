@@ -1,39 +1,31 @@
 <script setup>
-import { useAuthStore } from '@/stores/authStore.js';
-import { useRouter } from 'vue-router';
-import { auth } from '@/firebase/Firebase';
 import { ref } from 'vue';
+import { isValidateEmail } from '@/utilities/utilities'
+import { useAuthStore } from '../stores/authStore.js';
 
-const router = useRouter()
 const authStore = useAuthStore();
 
-const newPassword = ref('vstepugmail.11111')
-const confirmNewPassword = ref('vstepugmail.11111')
+const email = ref('shtepuvlad@gmail.com');
 const errorMessage = ref('')
-const isReset = ref(false)
+const wasSent = ref(false)
 
-const changepassword = async () => {
-  if (newPassword.value === confirmNewPassword.value) {
-    const user = await authStore.changePassword(newPassword.value)
-      if (user) {
-        router.push('/')
-      } else {
-        console.log(authStore.errorMessage);
-      }
+const forgotButton = async () => {
+  try {
+    if (email.value.trim() === '') throw new Error('Enter the email adress in email adress field');
+    if (!isValidateEmail(email.value)) throw new Error('Enter the valid email adress');
+    await authStore.sendResetLink(email.value)
+    wasSent.value = true
+  } catch (error) {
+    errorMessage.value = error.message;
   }
 }
-
-const changePasswordButton = () => {
-  isReset.value = !isActive.value
-}
-
-
-
 </script>
 
 <template>
-  Change Password via Email: <br>
-  <input v-model="newPassword" type="password" placeholder="New Password"><br>
-  <input v-model="confirmNewPassword" type="password" placeholder="Confirm Password"><br>
-  <button @click="changepassword">Reset password</button>
+  Change Password via Email <br>
+  <input v-model="email" type="email" placeholder="Enter your email"><br>
+  <button @click="forgotButton">Send Link</button><br>
+  <p v-if="wasSent" style="color: chocolate;">Email for reset password was sent</p>
+  <router-link to="/">Go back home</router-link><br>
+
 </template>

@@ -2,13 +2,17 @@
 import { ref } from 'vue';
 import { useAuthStore } from '../stores/authStore.js';
 import { useRouter } from 'vue-router';
+import { validateFormForEmail } from '@/errors/validationerrors.js'
+
+const router = useRouter()
+const authStore = useAuthStore()
 
 
 const email = ref('shtepuvlad@gmail.com');
-const password = ref('vladsteppu@gmail');
-const wasSent = ref('');
-
+const password = ref('vstepuGmail.9999');
 const errorMessage = ref('');
+const isPasswordVisible = ref(false);
+
 const errorCodes = {
   'auth/invalid-credential': 'Invalid Login or Password. Try to type again',
   'auth/too-many-requests': 'Too many requests to log in. Change your password or try later.',
@@ -16,41 +20,18 @@ const errorCodes = {
   'auth/missing-password': 'Make sure if password is typed',
 }
 
-const router = useRouter()
-const authStore = useAuthStore();
-
-const isValidateEmail = (email) => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-};
-
 const login = async () => {
   try {
-    if (email.value.trim() === '') throw new Error('Enter the email adress');
-    if (!isValidateEmail(email.value)) throw new Error('Enter the valid email adress');
-
-
+    validateFormForEmail(email.value);
     const user = await authStore.authUser(email.value, password.value);
-
-    if (user) {
-      router.push('/');
-    }
+    if (user) { router.push('/'); }
   } catch (error) {
     errorMessage.value = errorCodes[error.code] ?? error.message;
   }
 };
 
-
-
-const forgotButton = async () => {
-  try {
-    if (email.value.trim() === '') throw new Error('Enter the email adress in email adress field');
-    if (!isValidateEmail(email.value)) throw new Error('Enter the valid email adress');
-    await authStore.sendResetLink(email.value)
-    wasSent.value = true
-  } catch (error) {
-    errorMessage.value = error.message;
-  }
+const togglePasswordVisibiliti = () => {
+  isPasswordVisible.value = !isPasswordVisible.value
 }
 
 </script>
@@ -60,12 +41,12 @@ const forgotButton = async () => {
     <h2>Log in</h2>
     <form @submit.prevent="login">
       <input v-model="email" type="email" placeholder="Email" /><br>
-      <input v-model="password" type="password" placeholder="Password" /><br>
-      <p @click="forgotButton" style="cursor: pointer;">
-        {{ wasSent ? 'Email with reset password link was sent' : 'Forgot Password' }}
-      </p>
+      <input :type="isPasswordVisible ? 'text' : 'password'" v-model="password" placeholder="Password" />
+      <button @click="togglePasswordVisibiliti" type="button">{{ isPasswordVisible ? 'Hide' : 'Show' }} </button><br>
+      <router-link to="/forgotpasslink">Forgot Password</router-link><br>
       <p v-if="errorMessage" style="color: red;">{{ errorMessage }}</p>
       <button type="submit">Login</button>
     </form>
   </div>
+  <router-view></router-view>
 </template>

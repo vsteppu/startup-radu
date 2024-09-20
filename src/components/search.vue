@@ -2,8 +2,8 @@
 import { ref, defineEmits } from 'vue';
 
 
-const searchQuery = ref('');
-const industry = ref('');
+const searchQuery = ref('it');
+const industry = ref('dev');
 const geo = ref('usa');
 
 const emit = defineEmits(['submit']);
