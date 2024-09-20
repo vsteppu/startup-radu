@@ -1,38 +1,28 @@
 <script setup>
 import { ref } from 'vue';
 import { useAuthStore } from '../stores/authStore';
-import { isValidateEmail, isValidPassword} from '@/utilities/utilities'
 import { useRouter } from 'vue-router';
-import { validateFormForEmail, validateFormForPassword } from '@/errors/validationerrors.js'
+import { errorCodes } from '@/errors/autherrors'
 
 
 
 const router = useRouter();
 const authStore = useAuthStore();
-const isValidPass = isValidPassword();
 
 const email = ref('shtepuvlad@gmail.com')
 const password = ref('vstepuGmail.9999')
 const confirmationpassword = ref('vstepuGmail.9999')
 const errorMessage = ref('')
 const isPasswordVisible = ref(false);
-const errorCodes = {
+/* const errorCodes = {
   'auth/email-already-in-use': 'Email alredy in use',
   'auth/missing-email': 'Email is missing'
 }
-
+ */
 const register = async () => {
   try {
-    validateFormForEmail(email.value);
-    validateFormForPassword(password.value, confirmationpassword.value);
-    /* 
-    if (email.value.trim() === '') throw new Error('Enter the email adress');
-    if (!isValidateEmail(email.value)) throw new Error('Enter the valid email adress');
-    if (password.value.length <= 6 ) throw new Error('Passwords must have at least 6 charaters ');
-    if (!isValidPass.hasSpecialChar(password.value)) throw new Error("Passwords must have at least one of this /[@.,\\]/ charaters" );
-    if (!isValidPass.hasLowerCase(password.value)) throw new Error("Passwords must have at least one lowercase charater" );
-    if (!isValidPass.hasUpperCase(password.value)) throw new Error("Passwords must have at least one uppercase charater" );
-    if (password.value !== confirmationpassword.value) throw new Error('Passwords are not the same'); */
+    //validateFormForEmail(email.value);
+    //validateFormForPassword(password.value, confirmationpassword.value);
     const user = await authStore.registerUser(email.value, password.value);
     if (user) {
       router.push('/');

@@ -11,7 +11,7 @@ const validationRulesForEmails = {
   emailFormat: {
     test: (value) => isValidateEmail(value),
     errorMessage: 'Enter a valid email address',
-  },
+  },  
 };
 
 const validationRulesForPasswords = {
@@ -55,3 +55,4 @@ export const validateFormForPassword = (password, confirmationpassword) => {
     }
   }
 };
+
