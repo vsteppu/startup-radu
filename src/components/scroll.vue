@@ -1,8 +1,7 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, onBeforeMount } from 'vue';
 import { defineProps, defineEmits } from 'vue';
 import { useJobStore } from '@/stores/jobStore';
-
 
 const visibleJobId = ref(null);
 const store = useJobStore();
@@ -10,17 +9,34 @@ const store = useJobStore();
 const emit = defineEmits(['select', 'save']);
 const props = defineProps(['jobList']);
 
-const isSaved = (jobId) => store.savedItems.some(job => job.id === jobId);
+// Reactive object to store saved status of each job
+const savedStatus = ref({});
 
-const handleButtonClick = (job) => {
-  toggleDetails(job);
-  emit('select', job);
+const checkIfJobIsSaved = async (jobId) => {
+  const check = await store.getSavedJobsForUser();
+  return check.some(savedJob => savedJob.id === jobId);
 };
 
+// Function to toggle job details
 const toggleDetails = (job) => {
   visibleJobId.value = (visibleJobId.value === job.id) ? null : job.id;
 };
 
+
+
+onMounted(async () => {
+await store.loadSavedJobs();
+for (const job of props.jobList) {
+    savedStatus.value[job.id] = await checkIfJobIsSaved(job.id);
+  }
+
+});
+
+// Function to handle button click
+const handleButtonClick = (job) => {
+  toggleDetails(job);
+  emit('select', job);
+};
 </script>
 
 <template>
@@ -30,8 +46,8 @@ const toggleDetails = (job) => {
       <button @click="handleButtonClick(job)">
         {{ visibleJobId === job.id ? 'Hide Details' : 'Show Details' }}
       </button>
-      <button  @click="emit('save', job)">
-        {{ isSaved(job.id) ? 'Saved' : 'Save' }}
+      <button @click="emit('save', job)">
+        {{ savedStatus[job.id] ? 'Saved' : 'Save' }}
       </button>
     </p>
   </div>
