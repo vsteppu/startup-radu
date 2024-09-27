@@ -9,7 +9,6 @@ const store = useJobStore();
 const emit = defineEmits(['select', 'save']);
 const props = defineProps(['jobList']);
 
-// Reactive object to store saved status of each job
 const savedStatus = ref({});
 
 const checkIfJobIsSaved = async (jobId) => {
@@ -17,19 +16,15 @@ const checkIfJobIsSaved = async (jobId) => {
   return check.some(savedJob => savedJob.id === jobId);
 };
 
-// Function to toggle job details
 const toggleDetails = (job) => {
   visibleJobId.value = (visibleJobId.value === job.id) ? null : job.id;
 };
 
-
-
 onMounted(async () => {
-await store.loadSavedJobs();
-for (const job of props.jobList) {
+  await store.loadSavedJobs();
+  for (const job of props.jobList) {
     savedStatus.value[job.id] = await checkIfJobIsSaved(job.id);
   }
-
 });
 
 // Function to handle button click
