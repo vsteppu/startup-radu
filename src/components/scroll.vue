@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onBeforeMount } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { defineProps, defineEmits } from 'vue';
 import { useJobStore } from '@/stores/jobStore';
 
@@ -9,25 +9,17 @@ const store = useJobStore();
 const emit = defineEmits(['select', 'save']);
 const props = defineProps(['jobList']);
 
-const savedStatus = ref({});
-
-const checkIfJobIsSaved = async (jobId) => {
-  const check = await store.getSavedJobsForUser();
-  return check.some(savedJob => savedJob.id === jobId);
-};
+const isSaved = (jobId) => store.savedItems.some(job => job.id === jobId);
 
 const toggleDetails = (job) => {
   visibleJobId.value = (visibleJobId.value === job.id) ? null : job.id;
 };
 
 onMounted(async () => {
-  await store.loadSavedJobs();
-  for (const job of props.jobList) {
-    savedStatus.value[job.id] = await checkIfJobIsSaved(job.id);
-  }
+  await store.loadSavedJobs(); // Load saved jobs
+
 });
 
-// Function to handle button click
 const handleButtonClick = (job) => {
   toggleDetails(job);
   emit('select', job);
@@ -42,7 +34,7 @@ const handleButtonClick = (job) => {
         {{ visibleJobId === job.id ? 'Hide Details' : 'Show Details' }}
       </button>
       <button @click="emit('save', job)">
-        {{ savedStatus[job.id] ? 'Saved' : 'Save' }}
+        {{ isSaved(job.id) ? 'Saved' : 'Save' }}
       </button>
     </p>
   </div>

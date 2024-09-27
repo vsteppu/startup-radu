@@ -11,7 +11,6 @@ const userStore = useAuthStore();
 // Computed property to determine if there are any saved items
 const hasSavedItems = computed(() => store.savedItems.length > 0);
 
-// Method to handle job click
 const handleJobClick = (job) => {
   if (visibleJobId.value === job.id) {
     visibleJobId.value = null;
@@ -22,7 +21,6 @@ const handleJobClick = (job) => {
   }
 };
 
-// Method to remove a saved job
 const removeSaved = (job) => {
   store.removeSaved(job);
 };
