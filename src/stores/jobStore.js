@@ -1,43 +1,76 @@
-// stores/jobStore.js
 import { defineStore } from "pinia";
+import { useAuthStore } from "./authStore";
+import { db } from "@/firebase/Firebase";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import { ref, watch } from "vue"; // Make sure to import ref
 
-export const useJobStore = defineStore("jobStore", {
-  state: () => ({
-    savedItems: JSON.parse(localStorage.getItem('savedItems')) || [], // Load saved items from localStorage
-  }),
+export const useJobStore = defineStore("jobStore", () => {
+  // States
+  const authUser = useAuthStore();
+  const user = authUser.user;
+  const userId = user.uid;
+  const savedItems = ref([]);
+  const userRef = doc(db, 'users', userId);
 
-  actions: {
-    
-    addToSaved(job) {
-      // Add job to savedItems if it's not already there
-      if (!this.savedItems.some((savedJob) => savedJob.id === job.id)) {
-        this.savedItems.push(job);
-        this.localStoredItems(); // Save to localStorage
+  // Actions  
+    const checkJobExistance = async (job) => {
+      if (user) {
+        const userDoc = await getDoc(userRef);
+        const savedJobs = userDoc.exists() ? userDoc.data().savedJobs || [] : [];
+        const jobExists = savedJobs.some(savedJobsId =>savedJobsId.id === job.id )
+        console.log(jobExists)
+        return jobExists
       }
-    },
-
-    removeItem(index) {
-      this.jobItems.splice(index, 1); // Remove item at specific index
-    },
-
-    removeSaved(index) {
-      this.savedItems.splice(index, 1); // Remove saved item at specific index
-      this.localStoredItems(); // Update localStorage
-    },
-
-    getItems() {
-      return this.savedItems;
-    },
-    
-    localStoredItems() {
-      localStorage.setItem('savedItems', JSON.stringify(this.savedItems));
-    },
-
-    loadItems() {
-      const storedItems = localStorage.getItem('savedItems');
-      if (storedItems) {
-        this.savedItems = JSON.parse(storedItems);
+      return false
+    };
+  
+    const saveJobForUser = async (job) => {
+      const jobexists = await checkJobExistance(job)
+      if (!jobexists) {
+        const userDoc = await getDoc(userRef);
+        const savedJobs = userDoc.exists() ? userDoc.data().savedJobs || [] : [];
+        savedJobs.push(job);
+        await setDoc(userRef, { savedJobs }, { merge: true });
+        console.log({ savedJobs })
+        //      savedItems.value = savedJobs
       }
-    },
-  },
-});
+    }
+
+  const getSavedJobsForUser = async () => {
+    if (user){
+      const userDoc = await getDoc(userRef);
+      const checkexistance = userDoc.exists() ? userDoc.data().savedJobs || [] : [];
+      console.log(checkexistance)
+      return savedItems.value = checkexistance
+    }
+      
+    return [];
+  };
+
+  const loadSavedJobs = async () => {
+      savedItems.value = await getSavedJobsForUser();
+  };
+
+  const removeSaved = async (jobId) => {
+    if (user) {
+      const userDoc = await getDoc(userRef);
+      const savedJobs = userDoc.exists() ? userDoc.data().savedJobs || [] : [];
+      const updatedJobs = savedJobs.filter(savedJob => savedJob.id !== jobId);
+      console.log(updatedJobs)
+
+      // Update the document in Firestore with the new list
+      await setDoc(userRef, { savedJobs: updatedJobs }, { merge: true });
+
+      // Update the local state
+      savedItems.value = updatedJobs; // If you want to keep savedItems in sync
+    }
+  };
+  return {
+    savedItems,
+    checkJobExistance,
+    saveJobForUser,
+    getSavedJobsForUser,
+    loadSavedJobs,
+    removeSaved,
+  }
+})

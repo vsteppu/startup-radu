@@ -1,8 +1,7 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { defineProps, defineEmits } from 'vue';
 import { useJobStore } from '@/stores/jobStore';
-
 
 const visibleJobId = ref(null);
 const store = useJobStore();
@@ -12,15 +11,22 @@ const props = defineProps(['jobList']);
 
 const isSaved = (jobId) => store.savedItems.some(job => job.id === jobId);
 
-const handleButtonClick = (job) => {
-  toggleDetails(job);
-  emit('select', job);
-};
-
 const toggleDetails = (job) => {
   visibleJobId.value = (visibleJobId.value === job.id) ? null : job.id;
 };
 
+onMounted(async () => {
+  await store.checkJobExistance()
+  store.getSavedJobsForUser() // Load saved jobs
+  store.saveJobForUser()
+
+});
+
+// Function to handle button click
+const handleButtonClick = (job) => {
+  toggleDetails(job);
+  emit('select', job);
+};
 </script>
 
 <template>
@@ -30,7 +36,7 @@ const toggleDetails = (job) => {
       <button @click="handleButtonClick(job)">
         {{ visibleJobId === job.id ? 'Hide Details' : 'Show Details' }}
       </button>
-      <button  @click="emit('save', job)">
+      <button @click="emit('save', job)">
         {{ isSaved(job.id) ? 'Saved' : 'Save' }}
       </button>
     </p>

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted  } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useJobStore } from '@/stores/jobStore';
 import { useAuthStore } from '@/stores/authStore';
 
@@ -11,7 +11,6 @@ const userStore = useAuthStore();
 // Computed property to determine if there are any saved items
 const hasSavedItems = computed(() => store.savedItems.length > 0);
 
-// Method to handle job click
 const handleJobClick = (job) => {
   if (visibleJobId.value === job.id) {
     visibleJobId.value = null;
@@ -22,33 +21,28 @@ const handleJobClick = (job) => {
   }
 };
 
-// Method to remove a saved job
-const removeSaved = (index) => {
-  store.removeSaved(index);
+const removeSaved = (job) => {
+  store.removeSaved(job);
 };
 
-onMounted(() => {
-  store.loadItems(); // Load items when component is mounted
-});
+onMounted(async () =>{
+  const loadSavedJobs = await store.loadSavedJobs()
+  console.log(loadSavedJobs)
+}
+);
 </script>
 
 <template>
   <p>Saved items:
-
-    <p v-if="!hasSavedItems">No items added yet.</p>
-    
-    <ul v-else>
-      <div v-for="(job, index) in store.savedItems" :key="job.id">
-        {{ job.jobTitle }} <br>
-        <button @click="handleJobClick(job)">
-          {{ visibleJobId === job.id ? 'Hide Details' : 'Show Details' }}
-        </button>
-        <button @click="() => removeSaved(index)">Remove</button>
-        <div v-if="visibleJobId === job.id">
-          
-          <div v-html="jobDescription"></div>
-        </div>
-      </div>
-    </ul>
+  <div v-for="(job, index) in store.savedItems" :key="job.id">
+    {{ job.jobTitle }} <br>
+    <button @click="handleJobClick(job)">
+      {{ visibleJobId === job.id ? 'Hide Details' : 'Show Details' }}
+    </button>
+    <button @click="() => removeSaved(job.id)">Remove</button>
+    <div v-if="visibleJobId === job.id">
+      <div v-html="jobDescription"></div>
+    </div>
+  </div>
   </p>
 </template>

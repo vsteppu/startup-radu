@@ -19,7 +19,6 @@ const handleSearch = async (searchQuery, geo, industry) => {
   try {
     const response = await fetch(`https://jobicy.com/api/v2/remote-jobs?tag=${searchQuery}&geo=${geo}&industry=${industry}`);
     const data = await response.json();
-
     if (data.jobCount === 0) {
       errorMessage.value = 'Job not found';
       jobList.value = [];
@@ -45,12 +44,14 @@ const handleJobClick = (job) => {
 };
 
 const handleSave = (job) => {
-  store.addToSaved(job);
+  store.saveJobForUser(job);
+  store.checkJobExistance(job)
 };
 
 </script>
 
 <template>
+  <button @click="isSaved(job)">to test button</button>
     <Search @submit="handleSearch" />
     <p v-if="errorMessage">{{ errorMessage }}</p>
     <Scroll v-if="jobList.length" :jobList="jobList" @select="handleJobClick" @save="handleSave" />
