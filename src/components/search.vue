@@ -1,8 +1,7 @@
 <script setup>
 import { ref, defineEmits } from 'vue';
 
-
-const searchQuery = ref('it');
+const searchQuery = ref('web');
 const industry = ref('dev');
 const geo = ref('usa');
 

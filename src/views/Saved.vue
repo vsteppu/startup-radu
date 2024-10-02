@@ -1,15 +1,14 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useJobStore } from '@/stores/jobStore';
-import { useAuthStore } from '@/stores/authStore';
 
 const jobDescription = ref('');
 const visibleJobId = ref(null);
 const store = useJobStore();
-const userStore = useAuthStore();
 
-// Computed property to determine if there are any saved items
-const hasSavedItems = computed(() => store.savedItems.length > 0);
+const savedJobsList = ref([])
+
+const hasSavedItems = computed(() => savedJobsList.value.length > 0);
 
 const handleJobClick = (job) => {
   if (visibleJobId.value === job.id) {
@@ -21,28 +20,35 @@ const handleJobClick = (job) => {
   }
 };
 
-const removeSaved = (job) => {
-  store.removeSaved(job);
+const getSavedJobs = async () => {
+  const savedJobs = await store.checkIfJobIsSaved();
+  savedJobsList.value = savedJobs
 };
 
-onMounted(async () =>{
-  const loadSavedJobs = await store.loadSavedJobs()
-  console.log(loadSavedJobs)
+const removeSaved = (jobId) => {
+  store.removeJob(jobId);
+  savedJobsList.value = savedJobsList.value.filter(job => job.id !== jobId);
+};
+
+
+onMounted(() => {
+  getSavedJobs()
 }
 );
 </script>
-
 <template>
-  <p>Saved items:
-  <div v-for="(job, index) in store.savedItems" :key="job.id">
-    {{ job.jobTitle }} <br>
-    <button @click="handleJobClick(job)">
-      {{ visibleJobId === job.id ? 'Hide Details' : 'Show Details' }}
-    </button>
-    <button @click="() => removeSaved(job.id)">Remove</button>
-    <div v-if="visibleJobId === job.id">
-      <div v-html="jobDescription"></div>
+  <p>Saved items: </p>
+  <div v-if="hasSavedItems">
+    <div v-for="(job, index) in savedJobsList" :key="job.id">
+      {{ job.jobTitle }} <br>
+      <button @click="handleJobClick(job)">
+        {{ visibleJobId === job.id ? 'Hide Details' : 'Show Details' }}
+      </button>
+      <button @click="() => removeSaved(job.id)">Remove</button>
+      <div v-if="visibleJobId === job.id">
+        <div v-html="jobDescription"></div>
+      </div>
     </div>
   </div>
-  </p>
+  <p v-else>No jobs added</p>
 </template>

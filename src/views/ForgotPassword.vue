@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { validateFormForEmail } from '@/errors/validationerrors.js'
+import { validateFormForEmail } from '@/utilities/validationerrors.js'
 import { useAuthStore } from '../stores/authStore.js';
 
 const authStore = useAuthStore();

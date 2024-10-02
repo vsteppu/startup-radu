@@ -2,25 +2,26 @@
 import { ref } from 'vue';
 import { useAuthStore } from '../stores/authStore.js';
 import { useRouter } from 'vue-router';
-import { validateFormForEmail } from '@/errors/validationerrors.js'
-import { errorCodes } from '@/errors/autherrors'
+import { validateFormForEmail } from '@/utilities/validationerrors.js'
+import { errorCodes } from '@/utilities/autherrors'
 
 const router = useRouter()
 const authStore = useAuthStore()
 
-
 const email = ref('shtepuvlad@gmail.com');
 const password = ref('vstepuGmail.9999');
 const errorMessage = ref('');
-const AuthErrors = ref('');
+const authErrors = ref('');
 const isPasswordVisible = ref(false);
+
 /* 
 const errorCodes = {
   'auth/invalid-credential': 'Invalid Login or Password. Try to type again',
   'auth/too-many-requests': 'Too many requests to log in. Change your password or try later.',
   'auth/invalid-email': 'Make sure if Email is typed',
   'auth/missing-password': 'Make sure if password is typed',
-} */
+} 
+*/
 
 const login = async () => {
   try {
@@ -31,6 +32,9 @@ const login = async () => {
     errorMessage.value = errorCodes[error.code] ?? error.message;
   }
 };
+
+
+
 
 const togglePasswordVisibiliti = () => {
   isPasswordVisible.value = !isPasswordVisible.value

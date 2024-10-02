@@ -43,17 +43,11 @@ const handleJobClick = (job) => {
   }
 };
 
-const handleSave = (job) => {
-  store.saveJobForUser(job);
-  store.checkJobExistance(job)
-};
-
 </script>
 
 <template>
-  <button @click="isSaved(job)">to test button</button>
     <Search @submit="handleSearch" />
     <p v-if="errorMessage">{{ errorMessage }}</p>
-    <Scroll v-if="jobList.length" :jobList="jobList" @select="handleJobClick" @save="handleSave" />
+    <Scroll v-if="jobList.length" :jobList="jobList" @select="handleJobClick"  />
     <Description :selectJob="jobDescription" />
 </template>

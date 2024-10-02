@@ -2,8 +2,8 @@
 import { ref } from 'vue';
 import { useAuthStore } from '../stores/authStore';
 import { useRouter } from 'vue-router';
-import { validateFormForEmail, validateFormForPassword } from '@/errors/validationerrors.js'
-import { errorCodes } from '@/errors/autherrors'
+import { validateFormForEmail, validateFormForPassword } from '@/utilities/validationerrors.js'
+import { errorCodes } from '@/utilities/autherrors'
 
 
 
@@ -12,14 +12,14 @@ const authStore = useAuthStore();
 
 const email = ref('shtepuvlad@gmail.com')
 const password = ref('vstepuGmail.9999')
-const confirmationpassword = ref('vstepuGmail.9999')
+const confirmationPassword = ref('vstepuGmail.9999')
 const errorMessage = ref('')
 const isPasswordVisible = ref(false);
 
 const register = async () => {
   try {
     validateFormForEmail(email.value);
-    validateFormForPassword(password.value, confirmationpassword.value);
+    validateFormForPassword(password.value, confirmationPassword.value);
     const user = await authStore.registerUser(email.value, password.value);
     if (user) {
       router.push('/');
@@ -42,7 +42,7 @@ isPasswordVisible.value=!isPasswordVisible.value
     <br>
     <input v-model="password" placeholder="Enter password" :type="isPasswordVisible ? 'text':'password'">
     <br>
-    <input v-model="confirmationpassword" placeholder="Enter password" :type="isPasswordVisible ? 'text':'password'">
+    <input v-model="confirmationPassword" placeholder="Enter password" :type="isPasswordVisible ? 'text':'password'">
     <br>
     <button @click="togglePasswordVisibiliti" type="button">
       {{ isPasswordVisible ? 'Hide Passwords' : 'Show  Passwords' }}
