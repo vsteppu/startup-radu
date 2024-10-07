@@ -33,7 +33,7 @@ const togglePasswordVisibiliti = () => {
   <div class="flex justify-center items-center relative top-20 inset-0 ">
     <form @submit.prevent="login" class=" grid place-items-start  py-8 px-20 rounded-lg bg-gray-100 shadow-xl">
 
-      <h2 class="mx-auto mb-5 text-xl">Log in</h2>
+      <h2 class="mx-auto mb-5 text-2xl">Log in</h2>
 
       <input v-model="email" type="email" placeholder="Email" 
       class=" w-80 border rounded-xl bg-gray-200 my-2 pl-3 py-1 h-9 " />

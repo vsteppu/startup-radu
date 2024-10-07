@@ -15,6 +15,7 @@ const jobDescription = ref('');
 const jobGeo = ref('');
 const jobIndustry = ref('');
 const jobType = ref('');
+const jobTitle = ref('');
 const visibleJobId = ref(null);
 const store = useJobStore();
 
@@ -41,6 +42,7 @@ const handleJobClick = (job) => {
     jobDescription.value = null;
   } else {
     visibleJobId.value = job.id;
+    jobTitle.value = job.jobTitle
     jobGeo.value = '<b>Location: </b> ' + job.jobGeo;
     jobIndustry.value = '<b>Industry: </b> ' + job.jobIndustry;
     jobType.value = '<b>Type: </b> ' + job.jobType;
@@ -65,6 +67,7 @@ const handleJobClick = (job) => {
           <div class="w-3/5 my-2">
             <Description 
             :visibleJobId="visibleJobId"
+            :jobTitle="jobTitle"
             :jobIndustry="jobIndustry"
             :jobType="jobType"
             :jobGeo="jobGeo"

@@ -64,15 +64,15 @@ const toggleReauthenticatePasswordVisibiliti = () => {
 </script>
 
 <template>
-  <h2 v-if="authStore.user"> My Space: {{ authStore.user.email }}
-    <br>
-    <p @click="changePasswordButton" style="cursor: pointer; font-size: 16px;">Change password</p>
-    <div v-if="isActive">
-      <input v-model="currentPassword" :type="isReauthenticatePasswordVisible ? 'text' : 'password'"
+  <div class="flex justify-center items-center relative top-20 inset-0 ">
+    <h2 v-if="authStore.user" class=" grid place-items-start  py-8 px-20 rounded-lg bg-gray-100 shadow-xl"> My Space: {{ authStore.user.email }}
+      <button @click="changePasswordButton"  class=" bg-gray-200 p-2 my-1 rounded-xl hover:bg-[#ede8e3] hover:text-amber-900 ">Change password</button>
+      <div v-if="isActive">
+        <input v-model="currentPassword" :type="isReauthenticatePasswordVisible ? 'text' : 'password'"
         placeholder="Type current password">
       <button @click="toggleReauthenticatePasswordVisibiliti" type="button">
         {{ isReauthenticatePasswordVisible ? 'Hide Password' : 'Show Password' }} </button>
-      <br>
+        <br>
       <button @click="reauthenticateuser" style="cursor: pointer;">ReauthenticateUser</button>
       <div v-if="isReauthenticate">
         <input v-model="newPassword" :type="isPasswordVisible ? 'text' : 'password'" placeholder="Type new password">
@@ -80,12 +80,13 @@ const toggleReauthenticatePasswordVisibiliti = () => {
         <button @click="togglePasswordVisibiliti" type="button">
           {{ isPasswordVisible ? 'Hide Password' : 'Show Password' }} </button>
           <br>
-        <button @click="changepassword">ChangePassword</button>
+          <button @click="changepassword">ChangePassword</button>
+        </div>
+        {{ error }} {{ errorMessage }}
       </div>
-      {{ error }} {{ errorMessage }}
-    </div>
-    <button @click="logout">Log out</button><br>
-  </h2>
+      <button @click="logout" class=" bg-gray-200 p-2 my-1 rounded-xl hover:bg-[#ede8e3] hover:text-amber-900 ">Log out</button><br>
+    </h2>
+  </div>
 
-
+    
 </template>
