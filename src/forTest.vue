@@ -1,19 +1,20 @@
 <template>
-  <p>Saved items:</p>
-  <div v-if="hasSavedItems">
-    <div v-for="(job, index) in savedJobsList" :key="job.id">
-      <p>{{ job.jobTitle }}</p>
-      <button @click="handleJobClick(job)">
-        {{ visibleJobId === job.id ? 'Hide Details' : 'Show Details' }}
-      </button>
-      <button @click="() => removeSaved(job.id)">Remove</button>
+  /* Color Theme Swatches in Hex */
+  .Minimal-neutral-palette-1-hex { color: #F2D7B6; }
+  .Minimal-neutral-palette-2-hex { color: #40352C; }
+  .Minimal-neutral-palette-3-hex { color: #736355; }
+  .Minimal-neutral-palette-4-hex { color: #A69485; }
+  .Minimal-neutral-palette-5-hex { color: #D9CCC1; }
 
-      <div v-if="visibleJobId === job.id">
-        <div v-html="jobDescription"></div>
-      </div>
-    </div>
-  </div>
-  <div v-else>
-    <p>No saved jobs available.</p>
-  </div>
 </template>
+
+<style>
+.colors {
+  color: #F2D7B6;
+  color: #40352C;
+  color: #736355;
+  color: #ede8e3;
+  color: #d9ccc1;
+  color: #fef0e4;
+}
+</style>

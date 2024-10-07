@@ -12,6 +12,9 @@ const props = defineProps(['submit']);
 const jobList = ref([]);
 const errorMessage = ref('');
 const jobDescription = ref('');
+const jobGeo = ref('');
+const jobIndustry = ref('');
+const jobType = ref('');
 const visibleJobId = ref(null);
 const store = useJobStore();
 
@@ -38,16 +41,39 @@ const handleJobClick = (job) => {
     jobDescription.value = null;
   } else {
     visibleJobId.value = job.id;
+    jobGeo.value = '<b>Location: </b> ' + job.jobGeo;
+    jobIndustry.value = '<b>Industry: </b> ' + job.jobIndustry;
+    jobType.value = '<b>Type: </b> ' + job.jobType;
     jobDescription.value = job.jobDescription;
 
   }
 };
-
+//jobDescription, jobType, jobIndustry, jobGeo
 </script>
 
 <template>
-    <Search @submit="handleSearch" />
-    <p v-if="errorMessage">{{ errorMessage }}</p>
-    <Scroll v-if="jobList.length" :jobList="jobList" @select="handleJobClick"  />
-    <Description :selectJob="jobDescription" />
+  <div class=" flex justify-center relative top-28 ">
+    <div class="py-5 px-16 rounded-lg flex flex-col justify-center bg-gray-100 w-4/5 shadow-xl">
+      <h1 class=" text-center font-semibold text-xl m-8 ">Job Search engine</h1>
+      <div>
+        <Search @submit="handleSearch" />
+        <p v-if="errorMessage">{{ errorMessage }}</p>
+        <div class="flex">
+          <div class="w-2/5 mr-2 ">
+            <Scroll v-if="jobList.length" :jobList="jobList" @select="handleJobClick" />
+          </div>
+          <div class="w-3/5 my-2">
+            <Description 
+            :visibleJobId="visibleJobId"
+            :jobIndustry="jobIndustry"
+            :jobType="jobType"
+            :jobGeo="jobGeo"
+            :jobDescription="jobDescription" 
+            />
+             <!-- class="rounded-xl bg-gray-200 p-3 "  -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

@@ -11,17 +11,7 @@ const authStore = useAuthStore()
 const email = ref('shtepuvlad@gmail.com');
 const password = ref('vstepuGmail.9999');
 const errorMessage = ref('');
-const authErrors = ref('');
 const isPasswordVisible = ref(false);
-
-/* 
-const errorCodes = {
-  'auth/invalid-credential': 'Invalid Login or Password. Try to type again',
-  'auth/too-many-requests': 'Too many requests to log in. Change your password or try later.',
-  'auth/invalid-email': 'Make sure if Email is typed',
-  'auth/missing-password': 'Make sure if password is typed',
-} 
-*/
 
 const login = async () => {
   try {
@@ -33,9 +23,6 @@ const login = async () => {
   }
 };
 
-
-
-
 const togglePasswordVisibiliti = () => {
   isPasswordVisible.value = !isPasswordVisible.value
 }
@@ -43,15 +30,28 @@ const togglePasswordVisibiliti = () => {
 </script>
 
 <template>
-  <div>
-    <h2>Log in</h2>
-    <form @submit.prevent="login">
-      <input v-model="email" type="email" placeholder="Email" /><br>
-      <input :type="isPasswordVisible ? 'text' : 'password'" v-model="password" placeholder="Password" />
-      <button @click="togglePasswordVisibiliti" type="button">{{ isPasswordVisible ? 'Hide' : 'Show' }} </button><br>
-      <router-link to="/forgotpasslink">Forgot Password</router-link><br>
-      <p v-if="errorMessage" style="color: red;">{{ errorMessage }}</p>
-      <button type="submit">Login</button>
+  <div class="flex justify-center items-center relative top-20 inset-0 ">
+    <form @submit.prevent="login" class=" grid place-items-start  py-8 px-20 rounded-lg bg-gray-100 shadow-xl">
+
+      <h2 class="mx-auto mb-5 text-xl">Log in</h2>
+
+      <input v-model="email" type="email" placeholder="Email" 
+      class=" w-80 border rounded-xl bg-gray-200 my-2 pl-3 py-1 h-9 " />
+
+      <div class="flex w-80">
+        <input :type="isPasswordVisible ? 'text' : 'password'" v-model="password" placeholder="Password"
+          class=" w-full grid place-items-center border pl-3 rounded-l-xl bg-gray-200" />
+        <button @click="togglePasswordVisibiliti" type="button" :class="isPasswordVisible ? 'hover:bg-green-200 duration-500' : 'hover:bg-red-200 duration-500'" class=" px-4 bg-gray-200 rounded-r-xl h-9 ">
+          <div v-if="isPasswordVisible" ><img src="../media/Hide.png" alt="Hide" class="h-6 opacity-50"></div>
+          <div v-else-if="!isPasswordVisible"><img  src="../media/Show.png" alt="Show" class="h-6 opacity-50"></div>
+        </button>
+      </div>
+
+      <div class="flex-column">
+        <router-link to="/forgotpasslink" class=" text-sm">Forgot Password</router-link><br>
+        <p v-if="errorMessage" style="color: red;">{{ errorMessage }}</p>
+      </div>
+      <button type="submit" class=" place-items-center mx-auto my-3 bg-slate-200 rounded-xl w-80 h-14  hover:bg-slate-300 duration-500 shadow-md ">Login</button>
     </form>
   </div>
   <router-view></router-view>
