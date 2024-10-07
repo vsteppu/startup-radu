@@ -60,7 +60,7 @@ onMounted(() =>
       <p> {{ job.jobTitle }}</p>
       <p class=" flex ">
         <button @click="handleButtonClick(job)"
-          class=" w-32 p-1 mr-1 my-2 rounded-lg bg-gray-300  hover:text-green-600  hover:bg-green-200 hover:shadow-lg">
+          class=" w-32 p-1 mr-1 my-2 rounded-lg bg-gray-300  hover:hover:bg-[#ede8e3] hover:shadow-lg">
           {{ visibleJobId === job.id ? 'Hide Details' : 'Show Details' }}
         </button>
       </p>
@@ -68,7 +68,7 @@ onMounted(() =>
     <button @click="saveJob(job)">
       <!--         {{ isSaved(job.id) ? 'Saved' : 'Save'}} -->
       <div v-if="isSaved(job.id)" @click="() => removeSaved(job.id)"><img src="../media/Saved.png" alt="Saved"
-          class=" h-8 p-1 opacity-50 rounded-lg border-[1px] border-green-700 bg-green-300 "></div>
+          class=" h-8 p-1 opacity-50 rounded-lg border-[1px] hover:bg-[#ede8e3]"></div>
       <div v-else-if="!isSaved(job.id)"><img src="../media/Save.png" alt="Save" class=" h-8 p-1 opacity-50 rounded-lg ">
       </div>
     </button>

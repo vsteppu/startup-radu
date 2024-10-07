@@ -64,29 +64,41 @@ const toggleReauthenticatePasswordVisibiliti = () => {
 </script>
 
 <template>
-  <div class="flex justify-center items-center relative top-20 inset-0 ">
-    <h2 v-if="authStore.user" class=" grid place-items-start  py-8 px-20 rounded-lg bg-gray-100 shadow-xl"> My Space: {{ authStore.user.email }}
-      <button @click="changePasswordButton"  class=" bg-gray-200 p-2 my-1 rounded-xl hover:bg-[#ede8e3] hover:text-amber-900 ">Change password</button>
-      <div v-if="isActive">
-        <input v-model="currentPassword" :type="isReauthenticatePasswordVisible ? 'text' : 'password'"
-        placeholder="Type current password">
-      <button @click="toggleReauthenticatePasswordVisibiliti" type="button">
-        {{ isReauthenticatePasswordVisible ? 'Hide Password' : 'Show Password' }} </button>
-        <br>
-      <button @click="reauthenticateuser" style="cursor: pointer;">ReauthenticateUser</button>
-      <div v-if="isReauthenticate">
-        <input v-model="newPassword" :type="isPasswordVisible ? 'text' : 'password'" placeholder="Type new password">
-        <input v-model="confirmNewPassword" :type="isPasswordVisible ? 'text' : 'password'" placeholder="Confirm new password">
-        <button @click="togglePasswordVisibiliti" type="button">
-          {{ isPasswordVisible ? 'Hide Password' : 'Show Password' }} </button>
+  <div class="flex justify-center items-center relative top-20 inset-0  ">
+    <div class="flex mx-auto w-4/5 py-8 px-20 rounded-lg bg-gray-100 shadow-xl">
+      <img src="@/media/Logo001.png" alt="Image" class="bg-gray-200 h-28 rounded-lg mr-4">
+      <div v-if="authStore.user" class="grid place-items-start" > My Space:
+        {{ authStore.user.email }}
+
+        <button @click="changePasswordButton"
+          class=" bg-gray-200 px-2 my-1 rounded-xl hover:bg-[#ede8e3] hover:text-amber-900 ">Change password</button>
+        <div v-if="isActive">
+          <input v-model="currentPassword" :type="isReauthenticatePasswordVisible ? 'text' : 'password'"
+            placeholder="Type current password" class=" w-80 border rounded-l-xl bg-gray-200 my-2 pl-3 py-1 h-9 ">
+          <button @click="toggleReauthenticatePasswordVisibiliti" type="button"
+            class=" place-items-center mx-auto my-3 bg-gray-200 rounded-r-xl px-2 h-9  hover:bg-gray-300 ">
+            {{ isReauthenticatePasswordVisible ? 'Hide' : 'Show' }} </button>
           <br>
-          <button @click="changepassword">ChangePassword</button>
+          <button @click="reauthenticateuser"
+            class=" place-items-center mx-auto my-3 bg-gray-200 rounded-xl px-2 h-9  hover:bg-gray-300 ">ReauthenticateUser</button>
+          <div v-if="isReauthenticate" class="flex flex-col place-items-start">
+            <input v-model="newPassword" class=" w-80 border rounded-xl bg-gray-200 my-2 pl-3 py-1 h-9 "
+              :type="isPasswordVisible ? 'text' : 'password'" placeholder="Type new password">
+            <input v-model="confirmNewPassword" class=" w-80 border rounded-xl bg-gray-200 my-2 pl-3 py-1 h-9 "
+              :type="isPasswordVisible ? 'text' : 'password'" placeholder="Confirm new password">
+            <button @click="togglePasswordVisibiliti" class=" my-1 bg-gray-200 rounded-xl px-2 h-9  hover:bg-gray-300 "
+              type="button">
+              {{ isPasswordVisible ? 'Hide Password' : 'Show Password' }} </button>
+            <button @click="changepassword"
+              class="my-1 bg-gray-200 rounded-xl px-2 h-8  hover:bg-gray-300 ">ChangePassword</button>
+          </div>
+          {{ error }} {{ errorMessage }}
         </div>
-        {{ error }} {{ errorMessage }}
+        <button @click="logout" class=" bg-gray-200 p-2 my-1 rounded-xl hover:bg-[#ede8e3] hover:text-amber-900 ">Log
+          out</button><br>
       </div>
-      <button @click="logout" class=" bg-gray-200 p-2 my-1 rounded-xl hover:bg-[#ede8e3] hover:text-amber-900 ">Log out</button><br>
-    </h2>
+    </div>
   </div>
 
-    
+
 </template>
