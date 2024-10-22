@@ -23,16 +23,6 @@ const login = async () => {
   }
 };
 
-
-/* const loginWithGoogle = async () => {
-  try {
-    await authStore.loginWithGoogle();  // Call the store's Google login function
-    router.push('/'); // Redirect after successful login
-  } catch (error) {
-    errorMessage.value = errorCodes[error.code] ?? error.message;
-  }
-}; */
-
 const loginWithGoogle = async () => {
   const ua = navigator.userAgent 
   const isInstagram = ua.indexOf('Instagram') > -1;
@@ -52,22 +42,6 @@ const loginWithGoogle = async () => {
 }
 };
 
-
-const loginWithGooglethroughInstagram = async () => {
-  const ua = navigator.userAgent 
-  const isInstagram = ua.indexOf('Instagram') > -1;
-
-  if (isInstagram) {
-    if (/iPad|iPhone|iPod/.test(ua)) {
-      window.location.href = 'googlechrome://example.com'; // Replace with your desired URL
-    } else {
-      window.location.href = 'intent:https://example.com#Intent;end'; // Replace with your desired URL
-    }
-  } else {
-    await loginWithGoogle(); // Call Google login if not on Instagram
-  }
-};
-
 const togglePasswordVisibiliti = () => {
   isPasswordVisible.value = !isPasswordVisible.value
 }
@@ -80,7 +54,10 @@ const togglePasswordVisibiliti = () => {
 
       <h2 class="mx-auto mb-5 text-2xl">Log in</h2>
 
-      <button type="button" @click="loginWithGoogle()" class="mx-auto mb-5 text-lg">Login with google</button>
+      <button type="button" @click="loginWithGoogle()" class="mx-auto mb-5 text-lg flex items-center">
+        <img src="../media/googleicon.png" alt="Hide" class="h-4 mr-1 ">
+        Login with google
+      </button>
 
       <input v-model="email" type="email" placeholder="Email" 
       class=" w-80 border rounded-xl bg-gray-200 my-2 pl-3 py-1 h-9 " />
