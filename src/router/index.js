@@ -5,6 +5,7 @@ import { storeToRefs } from "pinia";
 
 import Home from "../views/Home.vue";
 import Saved from "../views/Saved.vue";
+import Mobileapp from "../views/MobileApp.vue";
 import Register from "@/views/Register.vue";
 import Login from "@/views/Login.vue";
 import MySpace from "@/views/MySpace.vue";
@@ -19,6 +20,7 @@ const routes = [
   { path: "/forgotpasslink", name: ForgotPassLink, component: ForgotPassLink, meta: { requiresAuth: false } },
   { path: "/register", name: Register, component: Register, meta: { requiresAuth: false } },
   { path: "/login", name: Login, component: Login, meta: { requiresAuth: false } },
+  { path: "/mobileapp", name: Mobileapp, component: Mobileapp, meta: { requiresAuth: false } },
 ];
 
 const router = createRouter({

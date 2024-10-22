@@ -13,6 +13,7 @@ const { user } = storeToRefs(userStore)
       <router-link to="/" class=" w-32 flex items-center justify-center "><img src="@/media/Logo001.png" alt="Image" class="h-12 mx-5 my-2"></router-link>
       <router-link to="/" class="nav-item">Home</router-link>
       <router-link to="/Saved" class="nav-item">Saved</router-link>
+      <router-link to="/Mobileapp" class="nav-item">MobileApp</router-link>
       <router-link v-if="!userStore.isAuthenticated()" to="/Login" class="nav-item">Log in</router-link>
       <router-link v-if="!userStore.isAuthenticated()" to="/Register" class="nav-item">Register</router-link>
       <router-link v-if="userStore.isAuthenticated()" to="/MySpace" class="nav-item">My Space</router-link>
