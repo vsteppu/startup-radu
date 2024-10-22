@@ -23,6 +23,16 @@ const login = async () => {
   }
 };
 
+
+const loginWithGoogle = async () => {
+  try {
+    await authStore.loginWithGoogle();  // Call the store's Google login function
+    router.push('/'); // Redirect after successful login
+  } catch (error) {
+    errorMessage.value = errorCodes[error.code] ?? error.message;
+  }
+};
+
 const togglePasswordVisibiliti = () => {
   isPasswordVisible.value = !isPasswordVisible.value
 }
@@ -34,6 +44,8 @@ const togglePasswordVisibiliti = () => {
     <form @submit.prevent="login" class=" grid place-items-start  py-8 px-20 rounded-lg bg-gray-100 shadow-xl">
 
       <h2 class="mx-auto mb-5 text-2xl">Log in</h2>
+
+      <button type="button" @click="loginWithGoogle()" class="mx-auto mb-5 text-lg">Login with google</button>
 
       <input v-model="email" type="email" placeholder="Email" 
       class=" w-80 border rounded-xl bg-gray-200 my-2 pl-3 py-1 h-9 " />

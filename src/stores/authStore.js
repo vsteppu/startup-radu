@@ -1,7 +1,7 @@
 
 import { defineStore } from "pinia";
 import { ref, watch } from "vue";
-import { auth } from "@/firebase/Firebase";
+import { auth, provider } from "@/firebase/Firebase";
 import {
   onAuthStateChanged,
   updatePassword,
@@ -10,7 +10,8 @@ import {
   EmailAuthProvider,
   reauthenticateWithCredential,
   fetchSignInMethodsForEmail,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
+  signInWithPopup
 } from "firebase/auth";
 
 
@@ -35,6 +36,21 @@ export const useAuthStore = defineStore("authStore", () => {
     console.log('Loged in as: ' + user.email)
     return user
   };
+
+  const loginWithGoogle = async() => {
+    await signInWithPopup(auth, provider)
+      .then((result) => {
+        // User info is available in result.user
+        const user = result.user;
+        console.log("Logged in user:", user);
+        alert(`Logged in as ${user.displayName}`);
+      })
+      .catch((error) => {
+        // Handle errors here
+        console.error("Google login error:", error);
+        alert("Failed to log in with Google.");
+      })
+    }
 
   const sendResetLink = async (email) => {
     try {
@@ -130,5 +146,16 @@ export const useAuthStore = defineStore("authStore", () => {
     }
   });
 
-  return { user, sendResetLink, registerUser, checkUserExists, errorMessage, authUser, reauthenticateUser, changePassword, setUser, onAuthStateChanged, isAuthenticated };
+  return { user, 
+    sendResetLink, 
+    registerUser, 
+    checkUserExists, 
+    errorMessage, 
+    authUser, 
+    reauthenticateUser, 
+    changePassword, 
+    setUser, 
+    onAuthStateChanged, 
+    isAuthenticated,
+    loginWithGoogle };
 });
