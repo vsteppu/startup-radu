@@ -26,6 +26,13 @@ const login = async () => {
 
 const loginWithGoogle = async () => {
     redirectFromInstagram()
+    if (isInstagram) {
+      if (/iPad|iPhone|iPod/.test(ua)) {
+          window.location.href = 'https://search-for-jobs.netlify.app';
+      } else {
+          window.location.href = 'intent:https://search-for-jobs.netlify.app#Intent;end'; 
+      }
+    } 
     await authStore.loginWithGoogle();  // Call the store's Google login function
     router.push('/'); // Redirect after successful login
 }
