@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { useAuthStore } from '../stores/authStore.js';
 import { useRouter } from 'vue-router';
 import { validateFormForEmail } from '@/utilities/validationerrors.js'
+import { redirectFromInstagram } from '@/utilities/utilities.js'
 import { errorCodes } from '@/utilities/autherrors'
 
 const router = useRouter()
@@ -24,23 +25,11 @@ const login = async () => {
 };
 
 const loginWithGoogle = async () => {
-  const ua = navigator.userAgent 
-  const isInstagram = ua.indexOf('Instagram') > -1;
-  try {
-  if (isInstagram) {
-    if (/iPad|iPhone|iPod/.test(ua)) {
-      window.location.href = 'googlechrome://search-for-jobs.netlify.app'; // Replace with your desired URL
-    } else {
-      window.location.href = 'intent:https://search-for-jobs.netlify.app#Intent;end'; // Replace with your desired URL
-    }
-  } else {
+    redirectFromInstagram()
     await authStore.loginWithGoogle();  // Call the store's Google login function
     router.push('/'); // Redirect after successful login
-  }
-} catch (error) {
-  errorMessage.value = errorCodes[error.code] ?? error.message;
 }
-};
+
 
 const togglePasswordVisibiliti = () => {
   isPasswordVisible.value = !isPasswordVisible.value
@@ -56,7 +45,7 @@ const togglePasswordVisibiliti = () => {
 
       <button type="button" @click="loginWithGoogle()" class="mx-auto mb-5 text-lg flex items-center">
         <img src="../media/googleicon.png" alt="Hide" class="h-4 mr-1 ">
-        Login with google
+        Login with Google
       </button>
 
       <input v-model="email" type="email" placeholder="Email" 
