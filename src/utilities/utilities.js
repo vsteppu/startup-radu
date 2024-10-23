@@ -19,5 +19,6 @@ export const redirectFromInstagram = async () => {
     } else {
       window.location.href = 'intent:https://search-for-jobs.netlify.app#Intent;end'; 
     }
+    return
   } 
 }
