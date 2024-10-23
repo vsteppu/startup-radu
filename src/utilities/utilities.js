@@ -11,5 +11,4 @@ export const isValidPassword = () => ({
 export const redirectFromInstagram = async () => {
   const ua = navigator.userAgent 
   const isInstagram = ua.indexOf('Instagram') > -1;
-  return isInstagram
 }
