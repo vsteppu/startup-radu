@@ -25,8 +25,9 @@ const login = async () => {
 };
 
 const loginWithGoogle = async () => {
-    redirectFromInstagram()
+    const isInstagram= await redirectFromInstagram()
     if (isInstagram) {
+      const ua = navigator.userAgent 
       if (/iPad|iPhone|iPod/.test(ua)) {
           window.location.href = 'https://search-for-jobs.netlify.app';
       } else {
