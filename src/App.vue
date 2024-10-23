@@ -1,9 +1,32 @@
 <script setup>
 import { useAuthStore } from '@/stores/authStore.js';
 import { storeToRefs } from 'pinia'
+import { onMounted } from 'vue';
+import { redirectFromInstagram } from '@/utilities/utilities.js'
+
 
 const userStore = useAuthStore();
 const { user } = storeToRefs(userStore)
+
+const checkBrowser = () =>{
+  console.log("Function is executing on mounted")
+  const checkInstagram = redirectFromInstagram()
+  console.log("isInstagram : " + checkInstagram)
+  if (checkInstagram) {
+    const ua = navigator.userAgent 
+    console.log("UA")
+    if (/iPad|iPhone|iPod/.test(ua)) {
+      window.location.href = 'https://search-for-jobs.netlify.app';
+    } else {
+      window.location.href = 'intent:https://search-for-jobs.netlify.app#Intent;end'; 
+    }
+  } 
+  console.log("is Windows")
+}
+onMounted(()=>{
+  checkBrowser()
+}
+)
 
 </script>
 
