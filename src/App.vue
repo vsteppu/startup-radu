@@ -2,66 +2,32 @@
 import { useAuthStore } from '@/stores/authStore.js';
 import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue';
-import { isInstagramBrowser } from '@/utilities/utilities.js'
-import { ref } from 'vue';
+import { redirectFromInstagram } from '@/utilities/utilities.js'
 
 
 const userStore = useAuthStore();
 const { user } = storeToRefs(userStore)
 
-const device = ref('')
-const userAgent  = ref('')
-const instagram  = ref('')
-
-
-
-/* const checkBrowserPromise = new Promise((resolve, reject) => {
-  resolve(isInstagramBrowser());
-});
-checkBrowserPromise.then(
-  result => {
-    if (result) { 
-      const ua = navigator.userAgent;
-      if (/iPad|iPhone|iPod/.test(ua)) {
-        window.location.href = 'https://search-for-jobs.netlify.app'; 
-      } else {
-        window.location.href = 'intent:https://search-for-jobs.netlify.app#Intent;end';
-      }
+const checkBrowser = () =>{
+  console.log("Function is executing on mounted")
+  const checkInstagram = redirectFromInstagram()
+  console.log("isInstagram : " + checkInstagram)
+  if (checkInstagram) {
+    const ua = navigator.userAgent 
+    console.log("UA")
+    if (/iPad|iPhone|iPod/.test(ua)) {
+      window.location.href = 'https://search-for-jobs.netlify.app';
     } else {
-      console.log("Not in Instagram browser, proceeding normally.");
+      window.location.href = 'intent:https://search-for-jobs.netlify.app#Intent;end'; 
     }
-  }
-).catch(err => {
-    alert(err.message || "Unknown error occurred. Please try again later.");
-}) */
-
-const checkBrowser = () => {
-    const checkInstagram = isInstagramBrowser();
-    const ua = navigator.userAgent;
-
-    if (checkInstagram) {
-        const url = `https://search-for-jobs.netlify.app`;
-        if (/iPad|iPhone|iPod/.test(ua)) {
-            device.value = `It's Apple`;
-            window.location.href = url; // for iOS
-        } else {
-            device.value = `It's Android`;
-            alert("Please click the link below to open in your browser:");
-            // Optionally provide a link to open
-            const link = document.createElement('a');
-            link.href = url;
-            link.innerText = "Open in Browser";
-            document.body.appendChild(link);
-            link.click();
-        }
-    } else {
-        device.value = `It's Windows`;
-    }
-};
-
+  } 
+  console.log("is Windows")
+}
 onMounted(()=>{
   checkBrowser()
-})
+}
+)
+
 
 </script>
 
