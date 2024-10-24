@@ -36,28 +36,28 @@ checkBrowserPromise.then(
 }) */
 
 const checkBrowser = () => {
-            const checkInstagram = isInstagramBrowser()  
-            console.log(checkInstagram)
-            
-            console.log(window)
-            console.log(window.location)
-            console.log(location)
-            console.log(location.href)
-                      
-            const ua = navigator.userAgent 
-            if (checkInstagram) {
-              const url = `https://search-for-jobs.netlify.app`;
-                if (/iPad|iPhone|iPod/.test(ua)) {
-                    device.value = `It's Apple`
-                    window.location.href = url;
-                } else {
-                    device.value = `It's Android`   
-                    window.location.href = `intent:${url}#Intent;scheme=http;package=com.android.chrome;end`;; 
-                }
-            }else{
-              device.value = `It's windows`
-            }
-        };
+    const checkInstagram = isInstagramBrowser();
+    const ua = navigator.userAgent;
+
+    if (checkInstagram) {
+        const url = `https://search-for-jobs.netlify.app`;
+        if (/iPad|iPhone|iPod/.test(ua)) {
+            device.value = `It's Apple`;
+            window.location.href = url; // for iOS
+        } else {
+            device.value = `It's Android`;
+            alert("Please click the link below to open in your browser:");
+            // Optionally provide a link to open
+            const link = document.createElement('a');
+            link.href = url;
+            link.innerText = "Open in Browser";
+            document.body.appendChild(link);
+            link.click();
+        }
+    } else {
+        device.value = `It's Windows`;
+    }
+};
 
 onMounted(()=>{
   checkBrowser()
