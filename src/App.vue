@@ -39,7 +39,6 @@ checkBrowserPromise.then(
 const checkBrowser = () => {
             const checkInstagram = isInstagramBrowser()  
             console.log(checkInstagram)
-            accesFromInstagram.value = checkInstagram
             if (checkInstagram) {
                 const ua = navigator.userAgent 
                 console.log(ua)
