@@ -38,9 +38,8 @@ checkBrowserPromise.then(
 const checkBrowser = () =>{
   const checkInstagram = isInstagramBrowser()
   console.log("isInstagram : " + checkInstagram)
-
+  const ua = navigator.userAgent;
   if (checkInstagram) {
-    const ua = navigator.userAgent;
     if (/iPad|iPhone|iPod/.test(ua)) {
       device.value = 'is Iphone'
       window.location.href = 'https://search-for-jobs.netlify.app';
@@ -49,8 +48,7 @@ const checkBrowser = () =>{
       window.location.href = 'intent:https://search-for-jobs.netlify.app#Intent;end'; 
     }
   } 
-  const ua = navigator.userAgent;
-  userAgent.value=ua
+  userAgent.value= ua
   console.log(ua)
   console.log("is Windows")
 }
