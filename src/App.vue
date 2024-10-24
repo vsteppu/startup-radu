@@ -11,8 +11,8 @@ const { user } = storeToRefs(userStore)
 const checkBrowser = () =>{
   const checkInstagram = isInstagramBrowser()
   console.log("isInstagram : " + checkInstagram)
-  const ua = navigator.userAgent;
   if (checkInstagram) {
+    const ua = navigator.userAgent;
     if (/iPad|iPhone|iPod/.test(ua)) {
       window.location.href = 'https://search-for-jobs.netlify.app';
     } else {
