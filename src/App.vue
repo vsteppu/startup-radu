@@ -11,7 +11,7 @@ const { user } = storeToRefs(userStore)
 
 const device = ref('')
 const userAgent  = ref('')
-const window  = ref('')
+const isInstagram  = ref('')
 
 
 
@@ -39,20 +39,26 @@ const checkBrowser = () =>{
   const checkInstagram = isInstagramBrowser()
   console.log("isInstagram : " + checkInstagram)
   const ua = navigator.userAgent;
+
+  isInstagram.value= checkInstagram
+  userAgent.value= ua
+  console.log(ua)
+  console.log("is Windows")
+  
   if (checkInstagram) {
     if (/iPad|iPhone|iPod/.test(ua)) {
       device.value = 'is Iphone'
       userAgent.value= ua
+      isInstagram.value= checkInstagram
       window.location.href = 'https://search-for-jobs.netlify.app';
     } else {
       device.value = 'is android'
       userAgent.value= ua
+      isInstagram.value= checkInstagram
       window.location.href = 'intent:https://search-for-jobs.netlify.app#Intent;end'; 
     }
   } 
-  userAgent.value= ua
-  console.log(ua)
-  console.log("is Windows")
+
 }
 
 onMounted(()=>{
@@ -79,6 +85,7 @@ onMounted(()=>{
   </div>
   <div>{{'Device: ' + device }}</div>
   <div>{{'UserAgent: ' + userAgent }}</div>
+  <div>{{'Is Instagram: ' + isInstagram }}</div>
 
   <div >
     <router-view></router-view>
