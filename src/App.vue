@@ -51,11 +51,13 @@ const checkBrowser = () =>{
       userAgent.value= ua
       isInstagram.value= checkInstagram
       window.location.href =  'https://search-for-jobs.netlify.app';
+      return
     } else {
       device.value = 'is android'
       userAgent.value= ua
       isInstagram.value= checkInstagram
-      window.location.href =  'https://search-for-jobs.netlify.app';
+      window.location.href =  'intent:https://search-for-jobs.netlify.app#Intent;end';
+      return
   } 
   }
 }
