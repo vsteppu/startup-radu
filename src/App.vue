@@ -44,6 +44,8 @@ checkBrowserPromise.then(
     alert(err.message || "Unknown error occurred. Please try again later.");
 }) */
 
+onMounted(checkBrowser())
+
 </script>
 
 <template>
