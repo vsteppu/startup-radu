@@ -12,7 +12,6 @@ const { user } = storeToRefs(userStore)
 const device = ref('')
 const userAgent  = ref('')
 const isInstagram  = ref('')
-const window = ref('')
 
 
 
@@ -39,10 +38,13 @@ checkBrowserPromise.then(
 const checkBrowser = () => {
             const checkInstagram = isInstagramBrowser()  
             console.log(checkInstagram)
-            accesFromInstagram.value = checkInstagram
+            console.log(window)
+            console.log(window.location)
+            console.log(location)
+            console.log(location.href)
+
             if (checkInstagram) {
                 const ua = navigator.userAgent 
-                console.log(ua)
                 if (/iPad|iPhone|iPod/.test(ua)) {
                     device.value = `It's Apple`
                     window.location.href = `https://www.wonsulting.ai/`;
@@ -81,7 +83,6 @@ onMounted(()=>{
   <div>{{'Device: ' + device }}</div>
   <div>{{'UserAgent: ' + userAgent }}</div>
   <div>{{'Is Instagram: ' + isInstagram }}</div>
-  <div>{{'window: ' + window }}</div>
 
   <div >
     <router-view></router-view>
