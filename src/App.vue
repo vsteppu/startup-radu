@@ -2,36 +2,32 @@
 import { useAuthStore } from '@/stores/authStore.js';
 import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue';
-import { redirectFromInstagram } from '@/utilities/utilities.js'
-
+import { isInstagramBrowser } from '@/utilities/utilities.js'
+import { ref } from 'vue';
 
 const userStore = useAuthStore();
 const { user } = storeToRefs(userStore)
 
-const checkBrowser = () =>{
-  const ua = navigator.userAgent || navigator.vendor;;
-  const isInstagram = (ua.indexOf('Instagram') > -1) ? true : false;
-  console.log(isInstagram)
-  if (isInstagram) {
-    window.location.href = 'GoogleChrome://search-for-jobs.netlify.app';
-    return;
+const device =ref('') 
+const instagram =ref('') 
+
+const checkBrowser = () => {
+  const checkInstagram = isInstagramBrowser()
+  instagram.value = checkInstagram
+  if (checkInstagram) {
+    const ua = navigator.userAgent
+    console.log(ua)
+    if (/iPad|iPhone|iPod/.test(ua)) {
+      device.value = `It's Apple`
+      window.location.href = 'https://www.wonsulting.ai/';
+    } else {
+      device.value = `It's Android`
+      window.location.href = 'intent:https://www.wonsulting.ai/#Intent;end';
+    }
+  } else {
+    device.value = `It's windows`
   }
 }
-/* const checkBrowser = () =>{
-  console.log("Function is executing on mounted")
-  const checkInstagram = redirectFromInstagram()
-  console.log("isInstagram : " + checkInstagram)
-  if (checkInstagram) {
-    const ua = navigator.userAgent 
-    console.log("UA")
-    if (/iPad|iPhone|iPod/.test(ua)) {
-      window.location.href = 'https://search-for-jobs.netlify.app';
-    } else {
-      window.location.href = 'intent:https://search-for-jobs.netlify.app#Intent;end'; 
-    }
-  } 
-  console.log("is Windows")
-} */
 
 
 
@@ -40,7 +36,8 @@ const checkBrowser = () =>{
 <template>
   <div class="sticky top-0 flex items-center bg-[#ede8e3] px-32 justify-between shadow-md z-10 ">
     <div class="ml-5 flex content-between text-md font-sl uppercase ">
-      <router-link to="/" class=" w-32 flex items-center justify-center "><img src="@/media/Logo001.png" alt="Image" class="h-12 mx-5 my-2"></router-link>
+      <router-link to="/" class=" w-32 flex items-center justify-center "><img src="@/media/Logo001.png" alt="Image"
+          class="h-12 mx-5 my-2"></router-link>
       <router-link to="/" class="nav-item">Home</router-link>
       <router-link to="/Saved" class="nav-item">Saved</router-link>
       <router-link to="/Mobileapp" class="nav-item">MobileApp</router-link>
@@ -53,48 +50,48 @@ const checkBrowser = () =>{
       <a href=""><img src="@/media/Insta.png" alt="Instagram link" class=" opacity-50 h-8 mx-5 my-2"></a>
     </div>
   </div>
-  <button class="bg-slate-400 p-3 " @click="checkBrowser()">Test Redirect</button>
-  <div>{{'Device: ' + device }}</div>
-  <div>{{'UserAgent: ' + userAgent }}</div>
-  <div>{{'Is Instagram: ' + instagram }}</div>
+  <button class="bg-slate-400 p-3 " @click="checkBrowser">Test Redirect</button>
+  <div>{{ 'Device: ' + device }}</div>
+  <div>{{ 'Is Instagram: ' + instagram }}</div>
 
-  <div >
+  <div>
     <router-view></router-view>
   </div>
 
 </template>
 
 <style scooped>
-
- .nav-item{
+.nav-item {
   width: 8rem;
-    text-align: center;
-    padding-block: 20px;
-}
- .active{
-    position: absolute;
-    height: 1px;
-    width: 8rem;
-    background-color: black;
-    transition: transform 0.2s;
+  text-align: center;
+  padding-block: 20px;
 }
 
-.nav-item:nth-child(2):hover ~ .active{
-    transform: translateX(8rem);
+.active {
+  position: absolute;
+  height: 1px;
+  width: 8rem;
+  background-color: black;
+  transition: transform 0.2s;
 }
 
-.nav-item:nth-child(3):hover ~ .active{
-    transform: translateX(16rem);
+.nav-item:nth-child(2):hover~.active {
+  transform: translateX(8rem);
 }
 
-.nav-item:nth-child(4):hover ~ .active{
-    transform: translateX(24rem);
+.nav-item:nth-child(3):hover~.active {
+  transform: translateX(16rem);
 }
 
-.nav-item:nth-child(5):hover ~ .active{
-    transform: translateX(32rem);
+.nav-item:nth-child(4):hover~.active {
+  transform: translateX(24rem);
 }
-.my-space:nth-child(5):hover ~ .active{
-    transform: translateX(32rem);
+
+.nav-item:nth-child(5):hover~.active {
+  transform: translateX(32rem);
+}
+
+.my-space:nth-child(5):hover~.active {
+  transform: translateX(32rem);
 }
 </style>
