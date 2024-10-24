@@ -35,32 +35,6 @@ checkBrowserPromise.then(
     alert(err.message || "Unknown error occurred. Please try again later.");
 }) */
 
-const checkBrowser = () => {
-  const checkInstagram = isInstagramBrowser()
-  console.log(checkInstagram)
-
-  console.log(window)
-  console.log(window.location)
-  console.log(location)
-  console.log(location.href)
-
-  const ua = navigator.userAgent
-  if (checkInstagram) {
-    const url = `https://www.wonsulting.ai`;
-    let anchor = document.createElement('a');
-    anchor.href = url;
-    if (/iPad|iPhone|iPod/.test(ua)) {
-      device.value = `It's Apple`
-      window.location.href = `https://search-for-jobs.netlify.app`;
-    } else {
-      device.value = `It's Android`
-      window.location.href = `https://search-for-jobs.netlify.app`;
-    }
-    anchor.click();
-  } else {
-    device.value = `It's windows`
-  }
-};
 
 
 </script>
