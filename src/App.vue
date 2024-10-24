@@ -55,7 +55,7 @@ const checkBrowser = () =>{
       device.value = 'is android'
       userAgent.value= ua
       isInstagram.value= checkInstagram
-      window.location.href =  `intent:${import.meta.env.VITE_INTENT_URL}`; 
+      window.location.href =  import.meta.env.VITE_INTENT_URL; 
     }
   } 
 
