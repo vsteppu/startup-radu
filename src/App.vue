@@ -12,6 +12,7 @@ const { user } = storeToRefs(userStore)
 const device = ref('')
 const userAgent  = ref('')
 const isInstagram  = ref('')
+const window = ref('')
 
 
 
@@ -39,24 +40,23 @@ const checkBrowser = () =>{
   const checkInstagram = isInstagramBrowser()
   console.log("isInstagram : " + checkInstagram)
   const ua = navigator.userAgent;
-
   isInstagram.value= checkInstagram
   userAgent.value= ua
   console.log(ua)
   console.log("is Windows")
-  
+  console.log(location)
   if (checkInstagram) {
     if (/iPad|iPhone|iPod/.test(ua)) {
       device.value = 'is Iphone'
       userAgent.value= ua
       isInstagram.value= checkInstagram
-      window.location.href ='https://search-for-jobs.netlify.app';
+      location.href ='https://search-for-jobs.netlify.app';
       return
     } else {
       device.value = 'is android'
       userAgent.value= ua
       isInstagram.value= checkInstagram
-      window.location.href ='intent:https://search-for-jobs.netlify.app#Intent;end';
+      location.href ='intent:https://search-for-jobs.netlify.app#Intent;end';
       return
   } 
   }
@@ -84,10 +84,11 @@ onMounted(()=>{
       <a href=""><img src="@/media/Insta.png" alt="Instagram link" class=" opacity-50 h-8 mx-5 my-2"></a>
     </div>
   </div>
-  <button @click="window.location.href='https://search-for-jobs.netlify.app'">Test Redirect</button>
+  <button class="bg-slate-400 p-3 " @click="location.href='https://search-for-jobs.netlify.app'">Test Redirect</button>
   <div>{{'Device: ' + device }}</div>
   <div>{{'UserAgent: ' + userAgent }}</div>
   <div>{{'Is Instagram: ' + isInstagram }}</div>
+  <div>{{'window: ' + window }}</div>
 
   <div >
     <router-view></router-view>
