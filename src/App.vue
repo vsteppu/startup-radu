@@ -32,18 +32,17 @@ checkBrowserPromise.then(
     if (result) { 
       const ua = navigator.userAgent;
       if (/iPad|iPhone|iPod/.test(ua)) {
-        window.location.href = window.location.href; 
+        window.open(window.location.href, '_blank');
       } else {
-        window.location.href = window.location.href;
+        window.location.href = `intent://${window.location.host}${window.location.pathname}#Intent;scheme=https;package=com.android.chrome;end`;
       }
     } else {
-      console.log("It's not Instagram browser, proceeding normally.");
+      console.log("Not in Instagram browser, proceeding normally.");
     }
   }
 ).catch(err => {
     alert(err.message || "Unknown error occurred. Please try again later.");
 })
-
 
 </script>
 
