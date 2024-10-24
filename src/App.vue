@@ -43,9 +43,9 @@ const checkBrowser = () => {
             console.log(window.location)
             console.log(location)
             console.log(location.href)
-                        
+                      
+            const ua = navigator.userAgent 
             if (checkInstagram) {
-                const ua = navigator.userAgent 
                 if (/iPad|iPhone|iPod/.test(ua)) {
                     device.value = `It's Apple`
                     window.location.href = `https://www.wonsulting.ai`;
