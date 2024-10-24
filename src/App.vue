@@ -11,7 +11,7 @@ const { user } = storeToRefs(userStore)
 
 const device = ref('')
 const userAgent  = ref('')
-const isInstagram  = ref('')
+const instagram  = ref('')
 
 
 
@@ -38,22 +38,24 @@ checkBrowserPromise.then(
 const checkBrowser = () => {
             const checkInstagram = isInstagramBrowser()  
             console.log(checkInstagram)
+            
             console.log(window)
             console.log(window.location)
             console.log(location)
             console.log(location.href)
-
+                        
             if (checkInstagram) {
                 const ua = navigator.userAgent 
                 if (/iPad|iPhone|iPod/.test(ua)) {
                     device.value = `It's Apple`
-                    window.location.href = `https://www.wonsulting.ai/`;
+                    window.location.href = `https://www.wonsulting.ai`;
                 } else {
                     device.value = `It's Android`   
-                    window.location.href = `intent:https://www.wonsulting.ai/#Intent;end`; 
+                    window.location.href = `intent:https://www.wonsulting.ai#Intent;end`; 
                 }
             }else{
-                device.value = `It's windows`
+              device.value = `It's windows`
+              window.location.href = `https://www.wonsulting.ai`
             }
         };
 
@@ -79,10 +81,10 @@ onMounted(()=>{
       <a href=""><img src="@/media/Insta.png" alt="Instagram link" class=" opacity-50 h-8 mx-5 my-2"></a>
     </div>
   </div>
-  <button class="bg-slate-400 p-3 " @click="checkBrowser()">Test Redirect</button>
+  <button class="bg-slate-400 p-3 " @click="checkBrowser">Test Redirect</button>
   <div>{{'Device: ' + device }}</div>
   <div>{{'UserAgent: ' + userAgent }}</div>
-  <div>{{'Is Instagram: ' + isInstagram }}</div>
+  <div>{{'Is Instagram: ' + instagram }}</div>
 
   <div >
     <router-view></router-view>
