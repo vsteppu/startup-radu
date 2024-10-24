@@ -9,10 +9,11 @@ const userStore = useAuthStore();
 const { user } = storeToRefs(userStore)
 
 const checkBrowser = () =>{
-  var ua = navigator.userAgent || navigator.vendor;
-  var isInstagram = (ua.indexOf('Instagram') > -1) ? true : false;
+  const ua = navigator.userAgent || navigator.vendor;;
+  const isInstagram = (ua.indexOf('Instagram') > -1) ? true : false;
+  console.log(isInstagram)
   if (isInstagram) {
-    window.location.href = 'intent://search-for-jobs.netlify.app#Intent;scheme=https;package=com.android.chrome;end';
+    window.location.href = 'GoogleChrome://search-for-jobs.netlify.app';
     return;
   }
 }
@@ -31,10 +32,7 @@ const checkBrowser = () =>{
   } 
   console.log("is Windows")
 } */
-onMounted(()=>{
-  checkBrowser()
-}
-)
+
 
 
 </script>
@@ -55,7 +53,7 @@ onMounted(()=>{
       <a href=""><img src="@/media/Insta.png" alt="Instagram link" class=" opacity-50 h-8 mx-5 my-2"></a>
     </div>
   </div>
-  <button class="bg-slate-400 p-3 " @click="checkBrowser">Test Redirect</button>
+  <button class="bg-slate-400 p-3 " @click="checkBrowser()">Test Redirect</button>
   <div>{{'Device: ' + device }}</div>
   <div>{{'UserAgent: ' + userAgent }}</div>
   <div>{{'Is Instagram: ' + instagram }}</div>
