@@ -2,13 +2,13 @@
 import { useAuthStore } from '@/stores/authStore.js';
 import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue';
-import { redirectFromInstagram } from '@/utilities/utilities.js'
+import { isInstagramBrowser } from '@/utilities/utilities.js'
 
 
 const userStore = useAuthStore();
 const { user } = storeToRefs(userStore)
 
-const checkBrowser = () =>{
+/* const checkBrowser = () =>{
   console.log("Function is executing on mounted")
   const checkInstagram = redirectFromInstagram()
   console.log("isInstagram : " + checkInstagram)
@@ -22,11 +22,28 @@ const checkBrowser = () =>{
     }
   } 
   console.log("is Windows")
-}
-onMounted(()=>{
-  checkBrowser()
-}
-)
+} */
+
+const checkBrowserPromise = new Promise((resolve, reject) => {
+  resolve(isInstagramBrowser());
+});
+checkBrowserPromise.then(
+  result => {
+    if (result) { 
+      const ua = navigator.userAgent;
+      if (/iPad|iPhone|iPod/.test(ua)) {
+        window.location.href = window.location.href; 
+      } else {
+        window.location.href = window.location.href;
+      }
+    } else {
+      console.log("It's not Instagram browser, proceeding normally.");
+    }
+  }
+).catch(err => {
+    alert(err.message || "Unknown error occurred. Please try again later.");
+})
+
 
 </script>
 

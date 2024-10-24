@@ -3,7 +3,6 @@ import { ref } from 'vue';
 import { useAuthStore } from '../stores/authStore.js';
 import { useRouter } from 'vue-router';
 import { validateFormForEmail } from '@/utilities/validationerrors.js'
-import { redirectFromInstagram } from '@/utilities/utilities.js'
 import { errorCodes } from '@/utilities/autherrors'
 
 const router = useRouter()
