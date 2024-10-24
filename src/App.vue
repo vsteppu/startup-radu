@@ -15,7 +15,7 @@ const isInstagram  = ref('')
 
 
 
-/* const checkBrowserPromise = new Promise((resolve, reject) => {
+const checkBrowserPromise = new Promise((resolve, reject) => {
   resolve(isInstagramBrowser());
 });
 checkBrowserPromise.then(
@@ -33,8 +33,8 @@ checkBrowserPromise.then(
   }
 ).catch(err => {
     alert(err.message || "Unknown error occurred. Please try again later.");
-}) */
-
+})
+/* 
 const checkBrowser = () =>{
   const checkInstagram = isInstagramBrowser()
   console.log("isInstagram : " + checkInstagram)
@@ -50,20 +50,20 @@ const checkBrowser = () =>{
       device.value = 'is Iphone'
       userAgent.value= ua
       isInstagram.value= checkInstagram
-      window.location.href =  'https://search-for-jobs.netlify.app';
+      window.location.href ='https://search-for-jobs.netlify.app';
       return
     } else {
       device.value = 'is android'
       userAgent.value= ua
       isInstagram.value= checkInstagram
-      window.location.href =  'intent:https://search-for-jobs.netlify.app#Intent;end';
+      window.location.href ='intent:https://search-for-jobs.netlify.app#Intent;end';
       return
   } 
   }
-}
+} */
 
 onMounted(()=>{
-  checkBrowser()
+  checkBrowserPromise()
 })
 
 </script>
