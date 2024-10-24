@@ -9,12 +9,9 @@ const userStore = useAuthStore();
 const { user } = storeToRefs(userStore)
 
 const checkBrowser = () =>{
-  console.log("Function is executing on mounted")
   const checkInstagram = isInstagramBrowser()
   console.log("isInstagram : " + checkInstagram)
   if (checkInstagram) {
-    const ua = navigator.userAgent 
-    console.log("UA")
     if (/iPad|iPhone|iPod/.test(ua)) {
       window.location.href = 'https://search-for-jobs.netlify.app';
     } else {
