@@ -51,15 +51,14 @@ const checkBrowser = () => {
     anchor.href = url;
     if (/iPad|iPhone|iPod/.test(ua)) {
       device.value = `It's Apple`
-      window.location.href = `https://www.wonsulting.ai`;
+      window.location.href = `https://search-for-jobs.netlify.app`;
     } else {
       device.value = `It's Android`
-      window.location.href = `https://www.wonsulting.ai`;
+      window.location.href = `https://search-for-jobs.netlify.app`;
     }
     anchor.click();
   } else {
     device.value = `It's windows`
-    window.location.href = `https://www.wonsulting.ai`
   }
 };
 
