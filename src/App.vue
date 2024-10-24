@@ -10,8 +10,8 @@ const userStore = useAuthStore();
 const { user } = storeToRefs(userStore)
 
 const device = ref('')
-const userAgent  = ref('')
-const instagram  = ref('')
+const userAgent = ref('')
+const instagram = ref('')
 
 
 
@@ -36,30 +36,34 @@ checkBrowserPromise.then(
 }) */
 
 const checkBrowser = () => {
-            const checkInstagram = isInstagramBrowser()  
-            console.log(checkInstagram)
-            
-            console.log(window)
-            console.log(window.location)
-            console.log(location)
-            console.log(location.href)
-                      
-            const ua = navigator.userAgent 
-            if (checkInstagram) {
-                if (/iPad|iPhone|iPod/.test(ua)) {
-                    device.value = `It's Apple`
-                    window.location.href = `https://www.wonsulting.ai`;
-                } else {
-                    device.value = `It's Android`   
-                    window.location.href = `https://www.wonsulting.ai`; 
-                }
-            }else{
-              device.value = `It's windows`
-              window.location.href = `https://www.wonsulting.ai`
-            }
-        };
+  const checkInstagram = isInstagramBrowser()
+  console.log(checkInstagram)
 
-onMounted(()=>{
+  console.log(window)
+  console.log(window.location)
+  console.log(location)
+  console.log(location.href)
+
+  const ua = navigator.userAgent
+  if (checkInstagram) {
+    const url = `https://www.wonsulting.ai`;
+    let anchor = document.createElement('a');
+    anchor.href = url;
+    if (/iPad|iPhone|iPod/.test(ua)) {
+      device.value = `It's Apple`
+      window.location.href = `https://www.wonsulting.ai`;
+    } else {
+      device.value = `It's Android`
+      window.location.href = `https://www.wonsulting.ai`;
+    }
+    anchor.click();
+  } else {
+    device.value = `It's windows`
+    window.location.href = `https://www.wonsulting.ai`
+  }
+};
+
+onMounted(() => {
   checkBrowser()
 })
 
@@ -68,7 +72,8 @@ onMounted(()=>{
 <template>
   <div class="sticky top-0 flex items-center bg-[#ede8e3] px-32 justify-between shadow-md z-10 ">
     <div class="ml-5 flex content-between text-md font-sl uppercase ">
-      <router-link to="/" class=" w-32 flex items-center justify-center "><img src="@/media/Logo001.png" alt="Image" class="h-12 mx-5 my-2"></router-link>
+      <router-link to="/" class=" w-32 flex items-center justify-center "><img src="@/media/Logo001.png" alt="Image"
+          class="h-12 mx-5 my-2"></router-link>
       <router-link to="/" class="nav-item">Home</router-link>
       <router-link to="/Saved" class="nav-item">Saved</router-link>
       <router-link to="/Mobileapp" class="nav-item">MobileApp</router-link>
@@ -82,47 +87,48 @@ onMounted(()=>{
     </div>
   </div>
   <button class="bg-slate-400 p-3 " @click="checkBrowser">Test Redirect</button>
-  <div>{{'Device: ' + device }}</div>
-  <div>{{'UserAgent: ' + userAgent }}</div>
-  <div>{{'Is Instagram: ' + instagram }}</div>
+  <div>{{ 'Device: ' + device }}</div>
+  <div>{{ 'UserAgent: ' + userAgent }}</div>
+  <div>{{ 'Is Instagram: ' + instagram }}</div>
 
-  <div >
+  <div>
     <router-view></router-view>
   </div>
 
 </template>
 
 <style scooped>
-
- .nav-item{
+.nav-item {
   width: 8rem;
-    text-align: center;
-    padding-block: 20px;
-}
- .active{
-    position: absolute;
-    height: 1px;
-    width: 8rem;
-    background-color: black;
-    transition: transform 0.2s;
+  text-align: center;
+  padding-block: 20px;
 }
 
-.nav-item:nth-child(2):hover ~ .active{
-    transform: translateX(8rem);
+.active {
+  position: absolute;
+  height: 1px;
+  width: 8rem;
+  background-color: black;
+  transition: transform 0.2s;
 }
 
-.nav-item:nth-child(3):hover ~ .active{
-    transform: translateX(16rem);
+.nav-item:nth-child(2):hover~.active {
+  transform: translateX(8rem);
 }
 
-.nav-item:nth-child(4):hover ~ .active{
-    transform: translateX(24rem);
+.nav-item:nth-child(3):hover~.active {
+  transform: translateX(16rem);
 }
 
-.nav-item:nth-child(5):hover ~ .active{
-    transform: translateX(32rem);
+.nav-item:nth-child(4):hover~.active {
+  transform: translateX(24rem);
 }
-.my-space:nth-child(5):hover ~ .active{
-    transform: translateX(32rem);
+
+.nav-item:nth-child(5):hover~.active {
+  transform: translateX(32rem);
+}
+
+.my-space:nth-child(5):hover~.active {
+  transform: translateX(32rem);
 }
 </style>
