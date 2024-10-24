@@ -15,7 +15,7 @@ const isInstagram  = ref('')
 
 
 
-const checkBrowserPromise = new Promise((resolve, reject) => {
+/* const checkBrowserPromise = new Promise((resolve, reject) => {
   resolve(isInstagramBrowser());
 });
 checkBrowserPromise.then(
@@ -33,8 +33,8 @@ checkBrowserPromise.then(
   }
 ).catch(err => {
     alert(err.message || "Unknown error occurred. Please try again later.");
-})
-/* 
+}) */
+
 const checkBrowser = () =>{
   const checkInstagram = isInstagramBrowser()
   console.log("isInstagram : " + checkInstagram)
@@ -60,10 +60,10 @@ const checkBrowser = () =>{
       return
   } 
   }
-} */
+}
 
 onMounted(()=>{
-  checkBrowserPromise()
+  checkBrowser()
 })
 
 </script>
@@ -84,6 +84,7 @@ onMounted(()=>{
       <a href=""><img src="@/media/Insta.png" alt="Instagram link" class=" opacity-50 h-8 mx-5 my-2"></a>
     </div>
   </div>
+  <button @click="window.location.href='https://search-for-jobs.netlify.app'">Test Redirect</button>
   <div>{{'Device: ' + device }}</div>
   <div>{{'UserAgent: ' + userAgent }}</div>
   <div>{{'Is Instagram: ' + isInstagram }}</div>
