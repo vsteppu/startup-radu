@@ -48,12 +48,10 @@ const checkBrowser = () => {
                 const ua = navigator.userAgent 
                 if (/iPad|iPhone|iPod/.test(ua)) {
                     device.value = `It's Apple`
-                    window.location.href = 'intent://www.wonsulting.ai#Intent;scheme=http;package=com.android.chrome;end';
-
+                    window.location.href = `https://www.wonsulting.ai`;
                 } else {
                     device.value = `It's Android`   
-                    window.location.href = 'intent://www.wonsulting.ai#Intent;scheme=http;package=com.android.chrome;end';
-
+                    window.location.href = `https://www.wonsulting.ai`; 
                 }
             }else{
               device.value = `It's windows`
