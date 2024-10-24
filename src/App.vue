@@ -62,9 +62,6 @@ const checkBrowser = () => {
   }
 };
 
-onMounted(() => {
-  checkBrowser()
-})
 
 </script>
 
