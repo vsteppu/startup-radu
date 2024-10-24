@@ -14,28 +14,6 @@ const userAgent  = ref('')
 const isInstagram  = ref('')
 const window = ref('')
 
-
-
-/* const checkBrowserPromise = new Promise((resolve, reject) => {
-  resolve(isInstagramBrowser());
-});
-checkBrowserPromise.then(
-  result => {
-    if (result) { 
-      const ua = navigator.userAgent;
-      if (/iPad|iPhone|iPod/.test(ua)) {
-        window.location.href = 'https://search-for-jobs.netlify.app'; 
-      } else {
-        window.location.href = 'intent:https://search-for-jobs.netlify.app#Intent;end';
-      }
-    } else {
-      console.log("Not in Instagram browser, proceeding normally.");
-    }
-  }
-).catch(err => {
-    alert(err.message || "Unknown error occurred. Please try again later.");
-}) */
-
 const checkBrowser = () => {
             const checkInstagram = isInstagramBrowser()  
             console.log(checkInstagram)
@@ -44,10 +22,10 @@ const checkBrowser = () => {
                 console.log(ua)
                 if (/iPad|iPhone|iPod/.test(ua)) {
                     device.value = `It's Apple`
-                    window.location.href = 'https://www.wonsulting.ai/';
+                    location.href = 'https://www.wonsulting.ai/';
                 } else {
                     device.value = `It's Android`   
-                    window.location.href = 'intent:https://www.wonsulting.ai/#Intent;end'; 
+                    location.href = 'intent:https://www.wonsulting.ai/#Intent;end'; 
                 }
             }else{
                 device.value = `It's windows`
@@ -55,7 +33,7 @@ const checkBrowser = () => {
         };
 
 onMounted(()=>{
-  checkBrowser()
+  checkBrowser
 })
 
 </script>
