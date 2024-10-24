@@ -15,11 +15,10 @@ const isInstagram  = ref('')
 const window = ref('')
 
 const checkBrowser = () => {
-            const checkInstagram = isInstagramBrowser()  
-            console.log(checkInstagram)
+  const ua = navigator.userAgent 
+  const isInstagram = ua.indexOf('Instagram') > -1;
+            console.log(isInstagram)
             if (checkInstagram) {
-                const ua = navigator.userAgent 
-                console.log(ua)
                 if (/iPad|iPhone|iPod/.test(ua)) {
                     device.value = `It's Apple`
                     location.href = 'https://www.wonsulting.ai/';
