@@ -12,7 +12,7 @@ const checkBrowser = () =>{
   var ua = navigator.userAgent || navigator.vendor;
   var isInstagram = (ua.indexOf('Instagram') > -1) ? true : false;
   if (isInstagram) {
-    window.location.href = 'intent:https://search-for-jobs.netlify.app#Intent;end';
+    window.location.href = 'intent://search-for-jobs.netlify.app#Intent;scheme=https;package=com.android.chrome;end';
     return;
   }
 }
