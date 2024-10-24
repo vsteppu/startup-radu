@@ -51,7 +51,7 @@ const checkBrowser = () => {
                     window.location.href = `https://www.wonsulting.ai`;
                 } else {
                     device.value = `It's Android`   
-                    window.location.href = `intent:https://www.wonsulting.ai#Intent;end`; 
+                    window.location.href = `https://www.wonsulting.ai`; 
                 }
             }else{
               device.value = `It's windows`
