@@ -3,19 +3,25 @@ import { useAuthStore } from '@/stores/authStore.js';
 import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue';
 import { isInstagramBrowser } from '@/utilities/utilities.js'
+import { ref } from 'vue';
 
 
 const userStore = useAuthStore();
 const { user } = storeToRefs(userStore)
 
-const checkBrowser = async () =>{
-  const checkInstagram = await isInstagramBrowser()
+const status = ref('')
+
+const checkBrowser = () =>{
+  const checkInstagram = isInstagramBrowser()
   console.log("isInstagram : " + checkInstagram)
+
   if (checkInstagram) {
     const ua = navigator.userAgent;
     if (/iPad|iPhone|iPod/.test(ua)) {
+      status.value = 'is Iphone'
       window.location.href = 'https://search-for-jobs.netlify.app';
     } else {
+      status.value = 'is android'
       window.location.href = 'intent:https://search-for-jobs.netlify.app#Intent;end'; 
     }
   } 
@@ -63,6 +69,7 @@ onMounted(()=>{
     <div>
       <a href=""><img src="@/media/Insta.png" alt="Instagram link" class=" opacity-50 h-8 mx-5 my-2"></a>
     </div>
+    <div>{{'device ' + status }}</div>
   </div>
 
   <div >
