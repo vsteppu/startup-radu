@@ -9,24 +9,11 @@ import { ref } from 'vue';
 const userStore = useAuthStore();
 const { user } = storeToRefs(userStore)
 
-const status = ref('')
+const device = ref('')
+const userAgent  = ref('')
+const window  = ref('')
 
-const checkBrowser = () =>{
-  const checkInstagram = isInstagramBrowser()
-  console.log("isInstagram : " + checkInstagram)
 
-  if (checkInstagram) {
-    const ua = navigator.userAgent;
-    if (/iPad|iPhone|iPod/.test(ua)) {
-      status.value = 'is Iphone'
-      window.location.href = 'https://search-for-jobs.netlify.app';
-    } else {
-      status.value = 'is android'
-      window.location.href = 'intent:https://search-for-jobs.netlify.app#Intent;end'; 
-    }
-  } 
-  console.log("is Windows")
-}
 
 /* const checkBrowserPromise = new Promise((resolve, reject) => {
   resolve(isInstagramBrowser());
@@ -47,6 +34,26 @@ checkBrowserPromise.then(
 ).catch(err => {
     alert(err.message || "Unknown error occurred. Please try again later.");
 }) */
+
+const checkBrowser = () =>{
+  const checkInstagram = isInstagramBrowser()
+  console.log("isInstagram : " + checkInstagram)
+
+  if (checkInstagram) {
+    const ua = navigator.userAgent;
+    if (/iPad|iPhone|iPod/.test(ua)) {
+      device.value = 'is Iphone'
+      window.location.href = 'https://search-for-jobs.netlify.app';
+    } else {
+      device.value = 'is android'
+      window.location.href = 'intent:https://search-for-jobs.netlify.app#Intent;end'; 
+    }
+  } 
+  const ua = navigator.userAgent;
+  userAgent.value=ua
+  console.log(ua)
+  console.log("is Windows")
+}
 
 onMounted(()=>{
   checkBrowser()
@@ -69,8 +76,9 @@ onMounted(()=>{
     <div>
       <a href=""><img src="@/media/Insta.png" alt="Instagram link" class=" opacity-50 h-8 mx-5 my-2"></a>
     </div>
-    <div>{{'device ' + status }}</div>
   </div>
+  <div>{{'Device: ' + device }}</div>
+  <div>{{'UserAgent: ' + userAgent }}</div>
 
   <div >
     <router-view></router-view>
