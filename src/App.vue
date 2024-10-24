@@ -32,9 +32,9 @@ checkBrowserPromise.then(
     if (result) { 
       const ua = navigator.userAgent;
       if (/iPad|iPhone|iPod/.test(ua)) {
-        window.open(window.location.href, '_blank');
+        window.location.href = 'https://search-for-jobs.netlify.app'; 
       } else {
-        window.location.href = `intent://${window.location.host}${window.location.pathname}#Intent;scheme=https;package=com.android.chrome;end`;
+        window.location.href = 'intent:https://search-for-jobs.netlify.app#Intent;end';
       }
     } else {
       console.log("Not in Instagram browser, proceeding normally.");
