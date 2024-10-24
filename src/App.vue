@@ -42,9 +42,11 @@ const checkBrowser = () =>{
   if (checkInstagram) {
     if (/iPad|iPhone|iPod/.test(ua)) {
       device.value = 'is Iphone'
+      userAgent.value= ua
       window.location.href = 'https://search-for-jobs.netlify.app';
     } else {
       device.value = 'is android'
+      userAgent.value= ua
       window.location.href = 'intent:https://search-for-jobs.netlify.app#Intent;end'; 
     }
   } 
