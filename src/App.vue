@@ -9,6 +9,14 @@ const userStore = useAuthStore();
 const { user } = storeToRefs(userStore)
 
 const checkBrowser = () =>{
+  var ua = navigator.userAgent || navigator.vendor;
+  var isInstagram = (ua.indexOf('Instagram') > -1) ? true : false;
+  if (isInstagram) {
+    window.location.href = 'intent:https://search-for-jobs.netlify.app#Intent;end';
+    return;
+  }
+}
+/* const checkBrowser = () =>{
   console.log("Function is executing on mounted")
   const checkInstagram = redirectFromInstagram()
   console.log("isInstagram : " + checkInstagram)
@@ -22,7 +30,7 @@ const checkBrowser = () =>{
     }
   } 
   console.log("is Windows")
-}
+} */
 onMounted(()=>{
   checkBrowser()
 }
