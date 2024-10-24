@@ -10,7 +10,7 @@ const { user } = storeToRefs(userStore)
 
 const checkBrowser = () =>{
   console.log("Function is executing on mounted")
-  const checkInstagram = redirectFromInstagram()
+  const checkInstagram = isInstagramBrowser()
   console.log("isInstagram : " + checkInstagram)
   if (checkInstagram) {
     const ua = navigator.userAgent 
