@@ -8,8 +8,8 @@ import { isInstagramBrowser } from '@/utilities/utilities.js'
 const userStore = useAuthStore();
 const { user } = storeToRefs(userStore)
 
-const checkBrowser = () =>{
-  const checkInstagram = isInstagramBrowser()
+const checkBrowser = async () =>{
+  const checkInstagram = await isInstagramBrowser()
   console.log("isInstagram : " + checkInstagram)
   if (checkInstagram) {
     const ua = navigator.userAgent;
