@@ -36,31 +36,24 @@ checkBrowserPromise.then(
     alert(err.message || "Unknown error occurred. Please try again later.");
 }) */
 
-const checkBrowser = () =>{
-  const checkInstagram = isInstagramBrowser()
-  console.log("isInstagram : " + checkInstagram)
-  const ua = navigator.userAgent;
-  isInstagram.value= checkInstagram
-  userAgent.value= ua
-  console.log(ua)
-  console.log("is Windows")
-  console.log(location)
-  if (checkInstagram) {
-    if (/iPad|iPhone|iPod/.test(ua)) {
-      device.value = 'is Iphone'
-      userAgent.value= ua
-      isInstagram.value= checkInstagram
-      location.href ='https://search-for-jobs.netlify.app';
-      return
-    } else {
-      device.value = 'is android'
-      userAgent.value= ua
-      isInstagram.value= checkInstagram
-      location.href ='intent:https://search-for-jobs.netlify.app#Intent;end';
-      return
-  } 
-  }
-}
+const checkBrowser = () => {
+            const checkInstagram = isInstagramBrowser()  
+            console.log(checkInstagram)
+            accesFromInstagram.value = checkInstagram
+            if (checkInstagram) {
+                const ua = navigator.userAgent 
+                console.log(ua)
+                if (/iPad|iPhone|iPod/.test(ua)) {
+                    device.value = `It's Apple`
+                    window.location.href = 'https://www.wonsulting.ai/';
+                } else {
+                    device.value = `It's Android`   
+                    window.location.href = 'intent:https://www.wonsulting.ai/#Intent;end'; 
+                }
+            }else{
+                device.value = `It's windows`
+            }
+        };
 
 onMounted(()=>{
   checkBrowser()
@@ -84,7 +77,7 @@ onMounted(()=>{
       <a href=""><img src="@/media/Insta.png" alt="Instagram link" class=" opacity-50 h-8 mx-5 my-2"></a>
     </div>
   </div>
-  <button class="bg-slate-400 p-3 " @click="location.href='https://search-for-jobs.netlify.app'">Test Redirect</button>
+  <button class="bg-slate-400 p-3 " @click="checkBrowser">Test Redirect</button>
   <div>{{'Device: ' + device }}</div>
   <div>{{'UserAgent: ' + userAgent }}</div>
   <div>{{'Is Instagram: ' + isInstagram }}</div>
