@@ -8,7 +8,7 @@ import { isInstagramBrowser } from '@/utilities/utilities.js'
 const userStore = useAuthStore();
 const { user } = storeToRefs(userStore)
 
-/* const checkBrowser = () =>{
+const checkBrowser = () =>{
   console.log("Function is executing on mounted")
   const checkInstagram = redirectFromInstagram()
   console.log("isInstagram : " + checkInstagram)
@@ -22,9 +22,9 @@ const { user } = storeToRefs(userStore)
     }
   } 
   console.log("is Windows")
-} */
+}
 
-const checkBrowserPromise = new Promise((resolve, reject) => {
+/* const checkBrowserPromise = new Promise((resolve, reject) => {
   resolve(isInstagramBrowser());
 });
 checkBrowserPromise.then(
@@ -42,7 +42,7 @@ checkBrowserPromise.then(
   }
 ).catch(err => {
     alert(err.message || "Unknown error occurred. Please try again later.");
-})
+}) */
 
 </script>
 
