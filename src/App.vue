@@ -10,27 +10,8 @@ const { user } = storeToRefs(userStore)
 
 const device =ref('') 
 const instagram =ref('') 
-/* 
-const checkBrowser = () => {
-  const checkInstagram = isInstagramBrowser()
-  instagram.value = checkInstagram
-  if (checkInstagram) {
-    const ua = navigator.userAgent
-    console.log(ua)
-    const redirectUrl = `https://${window.location.host}`
-    if (/iPad|iPhone|iPod/.test(ua)) {
-      device.value = `It's Apple`
-      window.location.href = redirectUrl;
-    } else {
-      device.value = `It's Android`
-      //window.open('https://search-for-jobs.netlify.app', '_blank');
-      //window.location.replace('https://search-for-jobs.netlify.app/')
-      window.location.href = `intent:${redirectUrl}#Intent;end`;
-    }
-  } else {
-    device.value = `It's windows`
-  }
-} */
+
+const checkBrowser = () => {isInstagramBrowser()}
 
 onMounted(()=>{
   isInstagramBrowser()
