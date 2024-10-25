@@ -9,36 +9,37 @@ import { ref } from 'vue';
 const userStore = useAuthStore();
 const { user } = storeToRefs(userStore)
 
-const errorMessage =ref('') 
-const device =ref('') 
-const instagram =ref('') 
+const errorMessage = ref('')
+const device = ref('')
+const instagram = ref('')
 
 const checkBrowser = () => {
-  try{
-  const checkInstagram = isInstagramBrowser()
-  instagram.value = checkInstagram
-  const redirectUrl = 'https://search-for-jobs.netlify.app';
+  try {
+    const checkInstagram = isInstagramBrowser()
+    instagram.value = checkInstagram
+    const redirectUrl = 'https://search-for-jobs.netlify.app';
     if (checkInstagram) {
-    const ua = navigator.userAgent
-    console.log(ua)
-    if (/iPad|iPhone|iPod/.test(ua)) {
-      device.value = `It's Apple`
-      window.location.href = redirectUrl;
+      const ua = navigator.userAgent
+      console.log(ua)
+      if (/iPad|iPhone|iPod/.test(ua)) {
+        device.value = `It's Apple`
+        window.location.href = redirectUrl;
+      } else {
+        device.value = `It's Android`
+        alert(window.location.href);
+        const chromeUrl = `googlechrome://${redirectUrl.replace(/^https?:\/\//, '')}`;
+        //window.open('https://search-for-jobs.netlify.app', '_blank');
+        //window.location.replace('https://search-for-jobs.netlify.app/')
+        //window.location.href = window.location.protocol + '//' + window.location.host;
+        window.location.href = chromeUrl;
+      }
     } else {
-      device.value = `It's Android`
       alert(window.location.href);
-      const chromeUrl = `googlechrome://${redirectUrl.replace(/^https?:\/\//, '')}`;
-      //window.open('https://search-for-jobs.netlify.app', '_blank');
-      //window.location.replace('https://search-for-jobs.netlify.app/')
-      //window.location.href = window.location.protocol + '//' + window.location.host;
-      window.location.href = chromeUrl;    }
-  } else {
-    alert(window.location.href);
-    device.value = `It's windows`
-  }
-  }catch(error) {
+      device.value = `It's windows`
+    }
+  } catch (error) {
     alert(error.message || "An unexpected error occurred");
-    errorMessage.value = error.message;  
+    errorMessage.value = error.message;
   }
 }
 
@@ -91,7 +92,7 @@ checkBrowser.then(
     </div>
   </div>
   <button class="bg-slate-400 p-3 " @click="checkBrowser">Test Redirect</button>
-  
+
   <div>{{ 'errorMessage: ' + errorMessage }}</div>
   <div>{{ 'Device: ' + device }}</div>
   <div>{{ 'Is Instagram: ' + instagram }}</div>
