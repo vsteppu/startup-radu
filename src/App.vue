@@ -11,7 +11,7 @@ const { user } = storeToRefs(userStore)
 const device =ref('') 
 const instagram =ref('') 
 
-/* const checkBrowser = () => {
+const checkBrowser = () => {
   const checkInstagram = isInstagramBrowser()
   instagram.value = checkInstagram
   if (checkInstagram) {
@@ -31,11 +31,11 @@ const instagram =ref('')
     device.value = `It's windows`
   }
 }
-
 onMounted(()=>{
   checkBrowser()
 })
- */
+
+/* 
  const checkBrowser = new Promise((resolve, reject) => {
   resolve(isInstagramBrowser());
 });
@@ -59,7 +59,7 @@ checkBrowser.then(
 ).catch(err => {
     alert(err.message || "Unknown error occurred. Please try again later.");
 }) 
-
+ */
 </script>
 
 <template>
