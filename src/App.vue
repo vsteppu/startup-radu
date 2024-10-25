@@ -22,8 +22,8 @@ const checkBrowser = () => {
       window.location.href = 'https://www.wonsulting.ai/';
     } else {
       device.value = `It's Android`
-      window.open('https://search-for-jobs.netlify.app', '_blank');
-      //window.location.href = 'intent://https://search-for-jobs.netlify.app//#Intent;end';
+      //window.open('https://search-for-jobs.netlify.app', '_blank');
+      window.location.href = 'intent://https://search-for-jobs.netlify.app#Intent;end';
     }
   } else {
     device.value = `It's windows`
