@@ -22,7 +22,7 @@ const checkBrowser = () => {
       window.location.href = 'https://www.wonsulting.ai/';
     } else {
       device.value = `It's Android`
-      window.location.href = window.open('link');
+      window.location.href = window.open('https://www.wonsulting.ai');
     }
   } else {
     device.value = `It's windows`
