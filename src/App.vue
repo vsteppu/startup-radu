@@ -31,9 +31,7 @@ const checkBrowser = () => {
     device.value = `It's windows`
   }
 }
-onMounted(()=>{
-  checkBrowser()
-})
+
 
 /* 
  const checkBrowser = new Promise((resolve, reject) => {
