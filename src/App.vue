@@ -15,7 +15,6 @@ const instagram =ref('')
 
 const checkBrowser = () => {
   try{
-    alert("start");
   const checkInstagram = isInstagramBrowser()
   instagram.value = checkInstagram
     if (checkInstagram) {
@@ -37,7 +36,6 @@ const checkBrowser = () => {
     device.value = `It's windows`
   }
   }catch(error) {
-    console.error(error); // Log the error for debugging
     alert(error.message || "An unexpected error occurred");
     errorMessage.value = error.message;  
   }
