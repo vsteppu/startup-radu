@@ -36,6 +36,26 @@ onMounted(()=>{
   checkBrowser()
 })
  */
+ const checkBrowser = new Promise((resolve, reject) => {
+  resolve(isInstagramBrowser());
+});
+checkBrowser.then(
+  result => {
+    if (result) { 
+      const ua = navigator.userAgent;
+      if (/iPad|iPhone|iPod/.test(ua)) {
+        window.location.href = 'https://search-for-jobs.netlify.app'; 
+      } else {
+        window.location.href = 'intent:https://search-for-jobs.netlify.app#Intent;end';
+      }
+    } else {
+      console.log("Not in Instagram browser, proceeding normally.");
+    }
+  }
+).catch(err => {
+    alert(err.message || "Unknown error occurred. Please try again later.");
+}) 
+
 </script>
 
 <template>
@@ -55,7 +75,7 @@ onMounted(()=>{
       <a href=""><img src="@/media/Insta.png" alt="Instagram link" class=" opacity-50 h-8 mx-5 my-2"></a>
     </div>
   </div>
-  <button class="bg-slate-400 p-3 " @click="window.location.href = `intent:${window.location.host}#Intent;end`">Test Redirect</button>
+  <button class="bg-slate-400 p-3 " @click="checkBrowser">Test Redirect</button>
   <div>{{ 'Device: ' + device }}</div>
   <div>{{ 'Is Instagram: ' + instagram }}</div>
 
