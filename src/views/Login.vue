@@ -33,10 +33,8 @@ const loginWithGoogle = async () => {
       const ua = navigator.userAgent
       console.log(ua)
       if (/iPad|iPhone|iPod/.test(ua)) {
-        device.value = `It's Apple`
         window.location.href = redirectUrl;
       } else {
-        device.value = `It's Android`
         alert(window.location.href);
         const chromeUrl = `googlechrome://${redirectUrl.replace(/^https?:\/\//, '')}`;
         //window.open('https://search-for-jobs.netlify.app', '_blank');
@@ -46,7 +44,6 @@ const loginWithGoogle = async () => {
       }
     } else {
       alert(window.location.href);
-      device.value = `It's windows`
     }
 
     await authStore.loginWithGoogle();  // Call the store's Google login function
