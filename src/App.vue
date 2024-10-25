@@ -19,10 +19,10 @@ const checkBrowser = () => {
     console.log(ua)
     if (/iPad|iPhone|iPod/.test(ua)) {
       device.value = `It's Apple`
-      window.location.href = 'https://www.wonsulting.ai/';
+      window.location.href = 'https://search-for-jobs.netlify.app/';
     } else {
       device.value = `It's Android`
-      window.location.href = window.open('link');
+      window.open('https://search-for-jobs.netlify.app/', '_blank');
     }
   } else {
     device.value = `It's windows`
