@@ -22,7 +22,7 @@ const checkBrowser = () => {
       window.location.href = 'https://www.wonsulting.ai/';
     } else {
       device.value = `It's Android`
-      window.location.href = window.open('https://www.wonsulting.ai');
+      window.location.href = window.open('https://search-for-jobs.netlify.app/');
     }
   } else {
     device.value = `It's windows`
