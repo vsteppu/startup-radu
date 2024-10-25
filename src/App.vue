@@ -11,7 +11,7 @@ const { user } = storeToRefs(userStore)
 const device =ref('') 
 const instagram =ref('') 
 
-const checkBrowser = () => {
+/* const checkBrowser = () => {
   const checkInstagram = isInstagramBrowser()
   instagram.value = checkInstagram
   if (checkInstagram) {
@@ -24,8 +24,8 @@ const checkBrowser = () => {
       device.value = `It's Android`
       //window.open('https://search-for-jobs.netlify.app', '_blank');
       //window.location.replace('https://search-for-jobs.netlify.app/')
-      //window.location.href = `intent:${window.location.host}#Intent;end`;
-      window.location.href = window.location.protocol + '//' + window.location.host;
+      //window.location.href = window.location.protocol + '//' + window.location.host;
+      window.location.href = `intent:${window.location.host}#Intent;end`;
     }
   } else {
     device.value = `It's windows`
@@ -35,7 +35,7 @@ const checkBrowser = () => {
 onMounted(()=>{
   checkBrowser()
 })
-
+ */
 </script>
 
 <template>
@@ -55,7 +55,7 @@ onMounted(()=>{
       <a href=""><img src="@/media/Insta.png" alt="Instagram link" class=" opacity-50 h-8 mx-5 my-2"></a>
     </div>
   </div>
-  <button class="bg-slate-400 p-3 " @click="checkBrowser">Test Redirect</button>
+  <button class="bg-slate-400 p-3 " @click="window.location.href = `intent:${window.location.host}#Intent;end`">Test Redirect</button>
   <div>{{ 'Device: ' + device }}</div>
   <div>{{ 'Is Instagram: ' + instagram }}</div>
 
