@@ -4,7 +4,7 @@ import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue';
 import { isInstagramBrowser } from '@/utilities/utilities.js'
 import { ref } from 'vue';
-import { errorMessages } from 'vue/compiler-sfc';
+
 
 const userStore = useAuthStore();
 const { user } = storeToRefs(userStore)
@@ -15,14 +15,15 @@ const instagram =ref('')
 
 const checkBrowser = () => {
   try{
+    alert("try");
   const checkInstagram = isInstagramBrowser()
-  instagram.value = checkInstagram
+  instagrsam.value = checkInstagram
     if (checkInstagram) {
     const ua = navigator.userAgent
     console.log(ua)
     if (/iPad|iPhone|iPod/.test(ua)) {
       device.value = `It's Apple`
-      window.location.href = redirectUrl;
+      window.location.href = redirectUrsl;
     } else {
       device.value = `It's Android`
       //window.open('https://search-for-jobs.netlify.app', '_blank');
@@ -34,8 +35,9 @@ const checkBrowser = () => {
     device.value = `It's windows`
   }
   }catch(error) {
-    alert(error)
-    errorMessage.value = errorCodes[error.code] ?? error.message;  
+    console.error(error); // Log the error for debugging
+    alert(error.message || "An unexpected error occurred");
+    errorMessage.value = error.message;  
   }
 }
 
