@@ -7,7 +7,7 @@ export const isValidPassword = () => ({
   hasLowerCase: (password) => /[a-z]/.test(password),
   hasUpperCase: (password) => /[A-Z]/.test(password),
 });
-export const redirectFromInstagram = async () => {
+export const isInstagramBrowser = async () => {
   const ua = navigator.userAgent 
   const isInstagram = ua.indexOf('Instagram') > -1;
   if (isInstagram) {
