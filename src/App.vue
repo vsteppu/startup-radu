@@ -22,14 +22,14 @@ const checkBrowser = () => {
       window.location.href = 'https://www.wonsulting.ai/';
     } else {
       device.value = `It's Android`
-      window.location.href = window.open('https://search-for-jobs.netlify.app/');
+      window.location.href = window.open('link');
     }
   } else {
     device.value = `It's windows`
   }
 }
 
-
+onMounted(()=>{checkBrowser()})
 
 </script>
 
