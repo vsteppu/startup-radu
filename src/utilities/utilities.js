@@ -7,8 +7,8 @@ export const isValidPassword = () => ({
   hasLowerCase: (password) => /[a-z]/.test(password),
   hasUpperCase: (password) => /[A-Z]/.test(password),
 });
-export const isInstagramBrowser = async () => {
+export const isInstagramBrowser = () => {
   const ua = navigator.userAgent 
-  const isInstagram = ua.indexOf('Instagram') > -1;
+  var isInstagram = (ua.indexOf('Instagram') > -1) ? true : false;
   return isInstagram
 }

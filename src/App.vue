@@ -11,7 +11,7 @@ const { user } = storeToRefs(userStore)
 const device =ref('') 
 const instagram =ref('') 
 
-const checkBrowser = () => {
+/* const checkBrowser = () => {
   const checkInstagram = isInstagramBrowser()
   instagram.value = checkInstagram
   if (checkInstagram) {
@@ -25,15 +25,17 @@ const checkBrowser = () => {
       //window.open('https://search-for-jobs.netlify.app', '_blank');
       //window.location.replace('https://search-for-jobs.netlify.app/')
       //window.location.href = window.location.protocol + '//' + window.location.host;
-      window.location.href = `intent:https://search-for-jobs.netlify.app#Intent;end`;
+      window.location.href = `intent:${window.location.host}#Intent;end`;
     }
   } else {
     device.value = `It's windows`
   }
 }
+onMounted(()=>{
+  checkBrowser()
+})
+ */
 
-
-/* 
  const checkBrowser = new Promise((resolve, reject) => {
   resolve(isInstagramBrowser());
 });
@@ -47,8 +49,7 @@ checkBrowser.then(
         window.location.href = 'https://search-for-jobs.netlify.app'; 
       } else {
         device.value = `It's Android`
-        window.location.href = 'intent:https://search-for-jobs.netlify.app#Intent;end';
-      }
+        window.location.href = `intent:${window.location.host}#Intent;end`;      }
     } else {
       instagram.value = result
       console.log("Not in Instagram browser, proceeding normally.");
@@ -57,7 +58,7 @@ checkBrowser.then(
 ).catch(err => {
     alert(err.message || "Unknown error occurred. Please try again later.");
 }) 
- */
+
 </script>
 
 <template>
