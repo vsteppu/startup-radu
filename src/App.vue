@@ -19,17 +19,18 @@ const checkBrowser = () => {
     console.log(ua)
     if (/iPad|iPhone|iPod/.test(ua)) {
       device.value = `It's Apple`
-      window.location.href = 'https://search-for-jobs.netlify.app/';
+      window.location.href = 'https://www.wonsulting.ai/';
     } else {
       device.value = `It's Android`
-      window.open('https://search-for-jobs.netlify.app/', '_blank');
+      window.open('https://search-for-jobs.netlify.app', '_blank');
+      //window.location.href = 'intent://https://search-for-jobs.netlify.app//#Intent;end';
     }
   } else {
     device.value = `It's windows`
   }
 }
 
-onMounted(()=>{checkBrowser()})
+
 
 </script>
 
