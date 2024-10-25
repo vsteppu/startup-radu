@@ -31,10 +31,11 @@ const checkBrowser = () => {
     device.value = `It's windows`
   }
 }
-onMounted(()=>{
+
+/* onMounted(()=>{
   checkBrowser()
 })
-
+ */
 
 /*  const checkBrowser = new Promise((resolve, reject) => {
   resolve(isInstagramBrowser());
