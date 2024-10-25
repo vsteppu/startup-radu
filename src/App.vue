@@ -33,8 +33,8 @@ const checkBrowser = () => {
   } else {
     device.value = `It's windows`
   }
-  }catch(err) {
-    alert(err)
+  }catch(error) {
+    alert(error)
     errorMessage.value = errorCodes[error.code] ?? error.message;  
   }
 }
