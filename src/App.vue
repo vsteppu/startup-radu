@@ -15,7 +15,7 @@ const instagram =ref('')
 
 const checkBrowser = () => {
   try{
-    alert("try");
+    alert("start");
   const checkInstagram = isInstagramBrowser()
   instagram.value = checkInstagram
     if (checkInstagram) {
@@ -25,13 +25,15 @@ const checkBrowser = () => {
       device.value = `It's Apple`
       window.location.href = redirectUrl;
     } else {
-      devices.value = `It's Android`
+      device.value = `It's Android`
+      alert(window.location.href);
       //window.open('https://search-for-jobs.netlify.app', '_blank');
       //window.location.replace('https://search-for-jobs.netlify.app/')
       //window.location.href = window.location.protocol + '//' + window.location.host;
       window.location.href = `intent:https://search-for-jobs.netlify.app/#Intent;end`;
     }
   } else {
+    alert(window.location.href);
     device.value = `It's windows`
   }
   }catch(error) {
