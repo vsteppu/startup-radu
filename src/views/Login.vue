@@ -28,7 +28,6 @@ const login = async () => {
 const loginWithGoogle = async () => {
   try{
     const checkInstagram = isInstagramBrowser()
-    instagram.value = checkInstagram
     const redirectUrl = 'https://search-for-jobs.netlify.app';
     if (checkInstagram) {
       const ua = navigator.userAgent
