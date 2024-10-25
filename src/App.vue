@@ -11,13 +11,13 @@ const errorMessage = ref('');
 const device = ref('');
 const instagram = ref('');
 
-const redirectUrl = 'https://search-for-jobs.netlify.app';
 
 const checkBrowser = () => {
   try {
     const checkInstagram = isInstagramBrowser();
     instagram.value = checkInstagram;
-
+    
+    const redirectUrl = 'https://search-for-jobs.netlify.app';
     if (checkInstagram) {
       const ua = navigator.userAgent;
       console.log(ua);
