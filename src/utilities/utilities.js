@@ -7,12 +7,17 @@ export const isValidPassword = () => ({
   hasLowerCase: (password) => /[a-z]/.test(password),
   hasUpperCase: (password) => /[A-Z]/.test(password),
 });
-
-const isInstagramBrowser = () =>{
+export const redirectFromInstagram = async () => {
   const ua = navigator.userAgent 
   const isInstagram = ua.indexOf('Instagram') > -1;
-  return isInstagram
-}
-export {
-  isInstagramBrowser
+  if (isInstagram) {
+
+    if (/iPad|iPhone|iPod/.test(ua)) {
+      window.location.href = 'https://search-for-jobs.netlify.app';
+
+    } else {
+      window.location.href = 'intent:https://search-for-jobs.netlify.app#Intent;end'; 
+    }
+    return
+  } 
 }

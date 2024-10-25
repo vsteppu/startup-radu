@@ -10,7 +10,7 @@ const { user } = storeToRefs(userStore)
 
 const device =ref('') 
 const instagram =ref('') 
-
+/* 
 const checkBrowser = () => {
   const checkInstagram = isInstagramBrowser()
   instagram.value = checkInstagram
@@ -30,10 +30,10 @@ const checkBrowser = () => {
   } else {
     device.value = `It's windows`
   }
-}
+} */
 
 onMounted(()=>{
-  checkBrowser()
+  isInstagramBrowser()
 })
 
 </script>
