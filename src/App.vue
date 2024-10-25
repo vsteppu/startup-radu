@@ -17,6 +17,7 @@ const checkBrowser = () => {
   try{
   const checkInstagram = isInstagramBrowser()
   instagram.value = checkInstagram
+  const redirectUrl = 'https://search-for-jobs.netlify.app';
     if (checkInstagram) {
     const ua = navigator.userAgent
     console.log(ua)
@@ -26,11 +27,11 @@ const checkBrowser = () => {
     } else {
       device.value = `It's Android`
       alert(window.location.href);
+      const chromeUrl = `googlechrome://${redirectUrl.replace(/^https?:\/\//, '')}`;
       //window.open('https://search-for-jobs.netlify.app', '_blank');
       //window.location.replace('https://search-for-jobs.netlify.app/')
       //window.location.href = window.location.protocol + '//' + window.location.host;
-      window.location.href = `intent:https://www.youtube.com/#Intent;end`;
-    }
+      window.location.href = chromeUrl;    }
   } else {
     alert(window.location.href);
     device.value = `It's windows`
