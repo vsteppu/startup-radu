@@ -25,7 +25,7 @@ const checkBrowser = () => {
       //window.open('https://search-for-jobs.netlify.app', '_blank');
       //window.location.replace('https://search-for-jobs.netlify.app/')
       //window.location.href = window.location.protocol + '//' + window.location.host;
-      window.location.href = `intent:${window.location.host}#Intent;end`;
+      window.location.href = `intent:https://search-for-jobs.netlify.app#Intent;end`;
     }
   } else {
     device.value = `It's windows`
