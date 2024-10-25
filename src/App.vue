@@ -14,7 +14,7 @@ const instagram =ref('')
 const checkBrowser = () => {isInstagramBrowser()}
 
 onMounted(()=>{
-  isInstagramBrowser()
+  checkBrowser()
 })
 
 </script>
