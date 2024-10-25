@@ -4,17 +4,20 @@ import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue';
 import { isInstagramBrowser } from '@/utilities/utilities.js'
 import { ref } from 'vue';
+import { errorMessages } from 'vue/compiler-sfc';
 
 const userStore = useAuthStore();
 const { user } = storeToRefs(userStore)
 
+const errorMessage =ref('') 
 const device =ref('') 
 const instagram =ref('') 
 
 const checkBrowser = () => {
+  try{
   const checkInstagram = isInstagramBrowser()
   instagram.value = checkInstagram
-  if (checkInstagram) {
+    if (checkInstagram) {
     const ua = navigator.userAgent
     console.log(ua)
     if (/iPad|iPhone|iPod/.test(ua)) {
@@ -29,6 +32,10 @@ const checkBrowser = () => {
     }
   } else {
     device.value = `It's windows`
+  }
+  }catch(err) {
+    alert(err)
+    errorMessage.value = errorCodes[error.code] ?? error.message;  
   }
 }
 
@@ -81,6 +88,8 @@ checkBrowser.then(
     </div>
   </div>
   <button class="bg-slate-400 p-3 " @click="checkBrowser">Test Redirect</button>
+  
+  <div>{{ 'errorMessage: ' + errorMessage }}</div>
   <div>{{ 'Device: ' + device }}</div>
   <div>{{ 'Is Instagram: ' + instagram }}</div>
 
