@@ -4,6 +4,8 @@ import { useAuthStore } from '../stores/authStore.js';
 import { useRouter } from 'vue-router';
 import { validateFormForEmail } from '@/utilities/validationerrors.js'
 import { errorCodes } from '@/utilities/autherrors'
+import { isInstagramBrowser } from '@/utilities/utilities.js'
+
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -47,7 +49,7 @@ const loginWithGoogle = async () => {
       alert(window.location.href);
       device.value = `It's windows`
     }
-    
+
     await authStore.loginWithGoogle();  // Call the store's Google login function
     router.push('/'); // Redirect after successful login
   } catch (error) {
