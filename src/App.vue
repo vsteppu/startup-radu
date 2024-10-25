@@ -42,13 +42,17 @@ onMounted(()=>{
 checkBrowser.then(
   result => {
     if (result) { 
+      instagram.value = result
       const ua = navigator.userAgent;
       if (/iPad|iPhone|iPod/.test(ua)) {
+        device.value = `It's Apple`
         window.location.href = 'https://search-for-jobs.netlify.app'; 
       } else {
+        device.value = `It's Android`
         window.location.href = 'intent:https://search-for-jobs.netlify.app#Intent;end';
       }
     } else {
+      instagram.value = result
       console.log("Not in Instagram browser, proceeding normally.");
     }
   }
