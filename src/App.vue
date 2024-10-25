@@ -11,7 +11,7 @@ const { user } = storeToRefs(userStore)
 const device =ref('') 
 const instagram =ref('') 
 
-/* const checkBrowser = () => {
+const checkBrowser = () => {
   const checkInstagram = isInstagramBrowser()
   instagram.value = checkInstagram
   if (checkInstagram) {
@@ -34,9 +34,9 @@ const instagram =ref('')
 onMounted(()=>{
   checkBrowser()
 })
- */
 
- const checkBrowser = new Promise((resolve, reject) => {
+
+/*  const checkBrowser = new Promise((resolve, reject) => {
   resolve(isInstagramBrowser());
 });
 checkBrowser.then(
@@ -49,7 +49,8 @@ checkBrowser.then(
         window.location.href = 'https://search-for-jobs.netlify.app'; 
       } else {
         device.value = `It's Android`
-        window.location.href = `intent:${window.location.host}#Intent;end`;      }
+        window.location.href = `intent:${window.location.host}#Intent;end`; 
+          }
     } else {
       instagram.value = result
       console.log("Not in Instagram browser, proceeding normally.");
@@ -57,7 +58,7 @@ checkBrowser.then(
   }
 ).catch(err => {
     alert(err.message || "Unknown error occurred. Please try again later.");
-}) 
+})  */
 
 </script>
 
