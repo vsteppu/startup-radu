@@ -8,7 +8,7 @@ const message = ref("To sign in with Google, tap the three dots (\u22EE) and sel
 
 const handleSocialLogin = () => {
     if (isSocialMediaAppBrowser()) {
-        window.location.href = 'https://www.instagram.com/';
+        window.location.href = 'intent://instagram.com/_u/username#Intent;package=com.instagram.android;scheme=https;end;';
     } else {
         console.log('nothing')
     }
