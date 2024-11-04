@@ -45,7 +45,7 @@ onMounted(() => {
 );
 </script>
 <template>
-  <div class="flex flex-col justify-center items-center relative top- inset-0 ">
+  <div class="flex flex-col justify-center items-center relative top-70 inset-0 bg-slate-400 ">
     <div class=" w-4/5 place-items-start bg-gray-100 py-3 px-20 rounded-lg">
       <p class="my-2">Saved items: </p>
       <div v-if="hasSavedItems" class="space-y-3 my-4 ">
