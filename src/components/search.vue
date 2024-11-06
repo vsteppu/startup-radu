@@ -12,8 +12,12 @@ const emit = defineEmits(['submit']);
   <header class="flex justify-center">
     <div class=" w-11/12 ">
       <div class="flex ">
-        <input v-model="searchQuery" @keyup.enter="emit('submit', searchQuery, geo, industry)" 
-        class=" border-[1px] border-gray-100 w-full pl-3 py-2 rounded-t-xl bg-gray-200"/>
+        <input 
+        v-model="searchQuery" 
+        @keyup.enter="emit('submit', searchQuery, geo, industry)" 
+        class=" border-[1px] border-gray-100 w-full pl-3 py-2 rounded-t-xl bg-gray-200"
+        @focus='(e)=>{e.target.select()}'
+        />
       </div>
       <div class="flex">
         <select v-model="geo" class=" border-[1px] border-gray-100 w-full pl-3 py-2 rounded-bl-xl bg-gray-200">
