@@ -19,7 +19,7 @@ export const isValidPassword = () => ({
     const isInstagram = ua.indexOf('instagram') > -1;
     const isLinkedin = ua.indexOf('linkedin') > -1;
     const isTiktok = ua.indexOf('tiktok') > -1;
-    return isInstagram || isLinkedin || isTiktok;
+    return  isLinkedin ||isInstagram || isTiktok;
   }
 
 
