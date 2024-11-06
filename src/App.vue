@@ -8,7 +8,12 @@ const userStore = useAuthStore();
 </script>
 
 <template>
+ <button>
   <router-link to="/Mobileapp" class="nav-item">Mobile</router-link>
+</button>
+ <div>
+  <router-link to="/Mobileapp" class="nav-item">Mobile</router-link>
+</div>
   <div class="absolute top-0 flex w-full items-center px-32 justify-between shadow-md z-10">
     <div class=" content-between mx-auto md:ml-5 text-md font-sl uppercase md:flex sm:inline hidden">
       <router-link to="/" class="w-32 flex items-center justify-center">
