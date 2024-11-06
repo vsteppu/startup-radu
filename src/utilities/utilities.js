@@ -16,7 +16,7 @@ export const isValidPassword = () => ({
 } */
   export const isSocialMediaAppBrowser = () =>{
     const ua = navigator.userAgent.toLowerCase()
-    const isInstagram = ua.indexOf('Instagram') > -1;
+    const isInstagram = ua.indexOf('instagram') > -1;
     const isLinkedin = ua.indexOf('linkedin') > -1;
     const isTiktok = ua.indexOf('tiktok') > -1;
     return isInstagram || isLinkedin || isTiktok;
