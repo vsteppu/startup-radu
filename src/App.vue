@@ -2,13 +2,21 @@
 import { useAuthStore } from '@/stores/authStore.js';
 import Sidebar from '@/components/sidebar.vue';
 import { isSocialMediaAppBrowser } from '@/utilities/utilities';
+import { onMounted } from 'vue';
 
 const userStore = useAuthStore();
 const isSocialMediaBrowser = isSocialMediaAppBrowser();
 
+onMounted(()=>{
+  console.log(isSocialMediaBrowser.ua)
+}
+
+)
 </script>
 
 <template>
+
+  {{ isSocialMediaBrowser.ua }}
   {{ isSocialMediaBrowser }}
   <div class="absolute top-0 flex w-full items-center px-32 justify-between shadow-md z-10">
     <div class=" content-between mx-auto md:ml-5 text-md font-sl uppercase md:flex sm:inline hidden">
