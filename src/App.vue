@@ -8,6 +8,7 @@ const userStore = useAuthStore();
 </script>
 
 <template>
+  <router-link to="/Mobileapp" class="nav-item">Mobile</router-link>
   <div class="absolute top-0 flex w-full items-center px-32 justify-between shadow-md z-10">
     <div class=" content-between mx-auto md:ml-5 text-md font-sl uppercase md:flex sm:inline hidden">
       <router-link to="/" class="w-32 flex items-center justify-center">
@@ -15,7 +16,6 @@ const userStore = useAuthStore();
       </router-link>
       <router-link to="/" class="nav-item ">Home</router-link>
       <router-link to="/Saved" class="nav-item sm:inline hidden">Saved</router-link>
-      <router-link to="/Mobileapp" class="nav-item">Mobile</router-link>
       <router-link v-if="!userStore.isAuthenticated()" to="/Login" class="nav-item sm:inline hidden">Log
         in</router-link>
       <router-link v-if="!userStore.isAuthenticated()" to="/Register"
