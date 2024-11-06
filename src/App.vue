@@ -15,7 +15,7 @@ const userStore = useAuthStore();
       </router-link>
       <router-link to="/" class="nav-item ">Home</router-link>
       <router-link to="/Saved" class="nav-item sm:inline hidden">Saved</router-link>
-      <router-link to="/Mobileapp" class="nav-item sm:inline hidden">Mobile</router-link>
+      <router-link to="/Mobileapp" class="nav-item">Mobile</router-link>
       <router-link v-if="!userStore.isAuthenticated()" to="/Login" class="nav-item sm:inline hidden">Log
         in</router-link>
       <router-link v-if="!userStore.isAuthenticated()" to="/Register"
@@ -30,7 +30,7 @@ const userStore = useAuthStore();
           class="opacity-50 h-8 mx-5 my-2 sm:inline hidden"></a>
     </div>
   </div>
-  <Sidebar class="md:hidden"/>
+<!--   <Sidebar class="md:hidden"/> -->
   <div>
     <router-view></router-view>
   </div>
