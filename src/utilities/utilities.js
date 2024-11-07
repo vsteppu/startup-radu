@@ -14,13 +14,13 @@ export const isValidPassword = () => ({
   const isTiktok = ua.indexOf('tiktok') > -1;
   return isInstagram || isLinkedin || isTiktok
 } */
-  export const isSocialMediaAppBrowser = () =>{
-    const ua = navigator.userAgent.toLowerCase()
-    const isInstagram = ua.indexOf('instagram') > -1;
-    const isLinkedin = ua.indexOf('linkedin') > -1;
-    const isTiktok = ua.indexOf('tiktok') > -1;
-    return {ua,isLinkedin,isInstagram, isTiktok};
-  }
+  export const isSocialMediaAppBrowser = () => {
+    const ua = navigator.userAgent.toLowerCase(); 
+    const isInstagram = ua.includes('instagram');
+    const isLinkedIn = ua.includes('linkedin') || ua.includes('li app');
+    const isTikTok = ua.includes('tiktok') || ua.includes('musically');
+    return isInstagram || isLinkedIn || isTikTok;
+  };
 
 
 export let socialButtonStyle = 'font-nunito w-full mx-auto flex justify-center items-center py-2 px-10 rounded-md shadow-sm text-sm font-medium text-gray-800 border border-gray-300 hover:bg-gray-50 focus:outline-none'
